@@ -1,0 +1,9 @@
+﻿BattleNet/.vs
+BattleNet/Temp
+BattleNet/Assembly-CSharp.csproj
+*.sln
+BattleNet/Library
+CrimeScene/Library
+BattleNet/obj
+BattleNet/Logs
+CrimeScene/Logs
