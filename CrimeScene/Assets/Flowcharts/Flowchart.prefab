@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 2875749081009013890}
   - component: {fileID: -5433095844519066728}
   - component: {fileID: 5399331468362889574}
+  - component: {fileID: 6462102213743102715}
+  - component: {fileID: 1976191915833694581}
+  - component: {fileID: 2756571122176403392}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -60,9 +63,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 9034108950597705227}
+  - {fileID: 6462102213743102715}
   selectedCommands:
-  - {fileID: 5399331468362889574}
+  - {fileID: 2756571122176403392}
   variables: []
   description: 
   stepPause: 0
@@ -157,3 +160,74 @@ MonoBehaviour:
   activeState:
     booleanRef: {fileID: 0}
     booleanVal: 0
+--- !u!114 &6462102213743102715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575572457161896888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 331
+    y: 301
+    width: 136
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 3
+  blockName: New Block1
+  description: 
+  eventHandler: {fileID: 1976191915833694581}
+  commandList:
+  - {fileID: 2756571122176403392}
+--- !u!114 &1976191915833694581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575572457161896888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49012bdc794e429686c1eff7d9ced90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 6462102213743102715}
+  clickableObject: {fileID: 9024125039710473942, guid: c1ac8f5221d2831488a6e5b8fa777ea7,
+    type: 3}
+  waitFrames: 1
+--- !u!114 &2756571122176403392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575572457161896888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  storyText: 'I am a cup of coffee!
+
+'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
