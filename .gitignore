@@ -8,3 +8,9 @@ BattleNet/obj
 BattleNet/Logs
 CrimeScene/Logs
 CrimeScene/Temp
+CrimeSceneV2/.vs
+CrimeSceneV2/Assembly-CSharp.csproj
+CrimeSceneV2/obj
+CrimeSceneV2/Library
+CrimeSceneV2/Logs
+CrimeSceneV2/Assembly-CSharp-Editor.csproj
