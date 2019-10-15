@@ -66,7 +66,8 @@ public class Server : MonoBehaviour
 
     private void OnIncomingData(ServerClient c, string data)
     {
-        Debug.Log(c.clientName + "sent: " + data);
+        //Debug.Log(c.clientName + " sent: " + data);
+        Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
     }
 
     private bool IsConnected(TcpClient c)
@@ -95,6 +96,21 @@ public class Server : MonoBehaviour
         StartListening();
 
         //send a message to everyone, say someone has connected;
+        Broadcast(clients[clients.Count - 1].clientName + " has connected", clients);
+    }
+
+    private void Broadcast(string data, List<ServerClient> cli) {
+        foreach(ServerClient c in cli){
+            try {
+                StreamWriter writer = new StreamWriter(c.tcp.GetStream());
+                writer.WriteLine(data);
+                writer.Flush();
+
+            } catch (Exception e) {
+                Debug.Log("Writer error: " + e.Message + "to client " + c.clientName);
+            }
+        }
+
     }
 }
 
