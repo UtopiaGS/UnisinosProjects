@@ -19,11 +19,18 @@ public class Client : MonoBehaviour
     public InputField HostInput;
     public InputField PortInput;
     public InputField MessageField;
+    public InputField NameField;
+
+    public GameObject LoginPanel;
 
     public string ClientName;
 
     public void OnConnectedToServer()
     {
+        ClientName = NameField.text;
+        Debug.Log("NAME>>> " + ClientName);
+        if (string.IsNullOrEmpty(ClientName)) ClientName = "Guest";
+        LoginPanel.SetActive(false);
         //if already connected, ignore this function
         if (_socketReady)
             return;
@@ -49,8 +56,6 @@ public class Client : MonoBehaviour
             _writer = new StreamWriter(_stream);
             _reader = new StreamReader(_stream);
             _socketReady = true;
-
-
         }
         catch (Exception e)
         {
@@ -78,6 +83,12 @@ public class Client : MonoBehaviour
     }
 
     private void OnIncomingData(string data) {
+
+        if (data=="%NAME") {
+            Debug.Log("CLIENR NAME >> " + ClientName);
+            Send("&NAME|" + ClientName);
+            return;
+        }
         // Debug.Log("Server: " + data);
        GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
         go.GetComponentInChildren<Text>().text = data;
@@ -94,5 +105,25 @@ public class Client : MonoBehaviour
     public void OnSendButton() {
         string message = MessageField.text;
         Send(message);
+    }
+
+    private void CloseSocket() {
+        if (!_socketReady) {
+            return;
+        }
+        _writer.Close();
+        _reader.Close();
+        _socket.Close();
+        _socketReady = false;
+    }
+
+    private void OnApplicationQuit()
+    {
+        CloseSocket(); 
+    }
+
+    private void OnDisable()
+    {
+        CloseSocket();
     }
 }

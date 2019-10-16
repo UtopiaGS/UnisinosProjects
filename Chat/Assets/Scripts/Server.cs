@@ -44,10 +44,12 @@ public class Server : MonoBehaviour
             //is the client still connected?
             //Check for messages
             if (!IsConnected(c.tcp))
-            {
-                c.tcp.Close(); //Close socket
+            {             
                 disconnectedList.Add(c);
-                continue;
+                Broadcast(c.clientName + " has disconnected", clients);
+                clients.Remove(c);
+                c.tcp.Close(); //Close socket
+                break;
             }
             else {
                 NetworkStream stream = c.tcp.GetStream();
@@ -62,12 +64,26 @@ public class Server : MonoBehaviour
 
             }
         }
+        for (int i = 0; i < disconnectedList.Count - 1; i++)
+        {
+            Broadcast(disconnectedList[i].clientName + " has disconnected", clients);
+
+            clients.Remove(disconnectedList[i]);
+            disconnectedList.RemoveAt(i);
+        }
     }
 
     private void OnIncomingData(ServerClient c, string data)
     {
+        if (data.Contains("&NAME")) {
+            c.clientName = data.Split('|')[1];
+            Debug.Log(c.clientName);
+            Broadcast(c.clientName + " has connected", clients);
+            return;
+        }
         //Debug.Log(c.clientName + " sent: " + data);
-        Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
+        //Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
+        Broadcast(c.clientName + ": "+data,clients);
     }
 
     private bool IsConnected(TcpClient c)
@@ -95,8 +111,8 @@ public class Server : MonoBehaviour
         clients.Add(new ServerClient(listener.EndAcceptTcpClient(ar)));
         StartListening();
 
-        //send a message to everyone, say someone has connected;
-        Broadcast(clients[clients.Count - 1].clientName + " has connected", clients);
+        //send a message to everyone, say someone has connected;        
+        Broadcast("%NAME", new List<ServerClient> { clients[clients.Count - 1] });
     }
 
     private void Broadcast(string data, List<ServerClient> cli) {
@@ -119,7 +135,7 @@ public class ServerClient {
     public string clientName;
 
     public ServerClient(TcpClient clientSocket) {
-        clientName = "Guest";
+        clientName = "";
         tcp = clientSocket;
     }
 }
