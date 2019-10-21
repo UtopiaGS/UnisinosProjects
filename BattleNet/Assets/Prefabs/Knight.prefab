@@ -536,6 +536,9 @@ GameObject:
   - component: {fileID: 7276876336265174079}
   - component: {fileID: 7276876336258132517}
   - component: {fileID: 4634489879589428770}
+  - component: {fileID: 1314385238}
+  - component: {fileID: 1314385239}
+  - component: {fileID: 3210037714693022687}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -550,7 +553,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7276876336265475145}
-  m_LocalRotation: {x: -0, y: -0.99484247, z: -0, w: 0.1014325}
+  m_LocalRotation: {x: 0, y: -0.99484277, z: 0, w: 0.1014296}
   m_LocalPosition: {x: 5.11, y: 0.11, z: 5.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -594,6 +597,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RootGameObject: {fileID: 7276876336265475145}
+  timeToMove: 1.5
+  Target: {fileID: 0}
+--- !u!136 &1314385238
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276876336265475145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1314385239
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276876336265475145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3210037714693022687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276876336265475145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4185c02135556438c04155871fd481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlineValue: 0.1
+  OutlineColorTurn: {r: 0, g: 0.91223574, b: 1, a: 0.84705883}
+  OutlineColorTarget: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
+  _renderes: {fileID: 7276876336262501523}
 --- !u!1 &7276876336265475453
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,8 +994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7276876336265226109}
   - component: {fileID: 7276876336262501523}
-  - component: {fileID: 7276876336532866700}
-  - component: {fileID: 7276876336532866703}
   m_Layer: 0
   m_Name: knightMesh
   m_TagString: Untagged
@@ -1063,33 +1110,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -15.37516, y: -10.857716, z: -0.000015258789}
     m_Extent: {x: 154.45258, y: 112.088104, z: 195.32825}
   m_DirtyAABB: 0
---- !u!136 &7276876336532866700
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7276876336265549771}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 195.32834
-  m_Height: 357.56238
-  m_Direction: 1
-  m_Center: {x: -0.000045419896, y: 119.55472, z: 22.542723}
---- !u!114 &7276876336532866703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7276876336265549771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4185c02135556438c04155871fd481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outlineValue: 0.1
 --- !u!1 &7276876336265550277
 GameObject:
   m_ObjectHideFlags: 0

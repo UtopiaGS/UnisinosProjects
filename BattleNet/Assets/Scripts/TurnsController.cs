@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class TurnsController : MonoBehaviour
 {
+    public static TurnsController instance;
     public List<PlayerCharacters> Players = new List<PlayerCharacters>();
     private int indexTurn = 1;
     public int IndexCharacter => indexTurn;
+    PlayerCharacters _currentPlayer;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
     }
 
     public void ClearTurn() {
@@ -25,12 +28,24 @@ public class TurnsController : MonoBehaviour
         ClearTurn();
         indexTurn++;
         indexTurn = indexTurn % Players.Count;
-        Debug.Log(indexTurn);
-        PlayerCharacters currentPlayer = Players[indexTurn];
+       // Debug.Log(indexTurn);
+        _currentPlayer = Players[indexTurn];
 
-        Debug.Log(currentPlayer.gameObject.name + "  " + indexTurn);
+       // Debug.Log(_currentPlayer.gameObject.name + "  " + indexTurn);
 
-        currentPlayer.CharacterTurn();
+        _currentPlayer.CharacterTurn();
+    }
+
+    public void AttackTarget(Vector3 endPos) {
+
+        Debug.Log("FOI DESGRAÇA");
+        _currentPlayer.ChracterTurn.MoveToTarget(endPos);
+
+    }
+
+    private void Start()
+    {
+        ChangeTurn();
     }
 
     // Update is called once per frame

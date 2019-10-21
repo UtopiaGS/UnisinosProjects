@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerCharacters : MonoBehaviour
 {
     public List<Character> Characters = new List<Character>();
-    private int indexTurn=2;
-    public int IndexCharacter => indexTurn;
+    private int _indexTurn=2;
+    public int IndexCharacter => _indexTurn;
+
+    private Character _characterTurn;
+    public Character ChracterTurn=> _characterTurn;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +19,14 @@ public class PlayerCharacters : MonoBehaviour
     public void CharacterTurn() {
         EndTurn();
         SetCollidersActivation(false);
-        indexTurn++;
-        indexTurn = indexTurn % Characters.Count;
-        Debug.Log(indexTurn);
-        Character currentCharacter = Characters[indexTurn];
+        _indexTurn++;
+        _indexTurn = _indexTurn % Characters.Count;
+        Debug.Log(_indexTurn);
+        Character currentCharacter = Characters[_indexTurn];
         currentCharacter.SelectCharacter();
+        _characterTurn = currentCharacter;
 
-        Debug.Log(currentCharacter.gameObject.name +"  "+indexTurn);
+        Debug.Log(currentCharacter.gameObject.name +"  "+_indexTurn);
 
     }
 

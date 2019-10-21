@@ -12,15 +12,9 @@ public class CharacterSelection : MonoBehaviour
 
     Renderer _renderes;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _renderes = GetComponent<Renderer>();      
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _renderes = GetComponentInChildren<Renderer>();      
     }
 
     public void SetSelectionColor() {
@@ -44,16 +38,15 @@ public class CharacterSelection : MonoBehaviour
 
     void OnMouseOver()
     {
-
         SetOutlineShader(_outlineValue, Color.red);
         //If your mouse hovers over the GameObject with the script attached, output this message
-        Debug.Log("Mouse is over GameObject.");
+       // Debug.Log("Mouse is over GameObject.");
     }
 
     void OnMouseExit()
     {
         SetOutlineShader(0, Color.red);
         //The mouse is no longer hovering over the GameObject so output this message each frame
-        Debug.Log("Mouse is no longer on GameObject.");
+       // Debug.Log("Mouse is no longer on GameObject.");
     }
 }
