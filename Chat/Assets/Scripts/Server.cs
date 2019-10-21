@@ -16,22 +16,33 @@ public class Server : MonoBehaviour
     private TcpListener server;
     private bool serverStarted;
 
-    private void Start()
+    private void OnEnable()
     {
+      //  StartServer();
+    }
+
+    private void StartServer() {
         clients = new List<ServerClient>();
         disconnectedList = new List<ServerClient>();
 
-        try {
+        try
+        {
             server = new TcpListener(IPAddress.Any, port);
             server.Start();
 
             StartListening();
             serverStarted = true;
 
-        } catch(Exception e) {
+        }
+        catch (Exception e)
+        {
             Debug.Log(e.Message);
         }
         Debug.Log("Server started at port " + port.ToString());
+    }
+    private void Start()
+    {
+        StartServer();
     }
 
     private void Update()
@@ -75,9 +86,9 @@ public class Server : MonoBehaviour
 
     private void OnIncomingData(ServerClient c, string data)
     {
-        if (data.Contains("&NAME")) {
+        if (data.Contains("&NAME|")) {
             c.clientName = data.Split('|')[1];
-            Debug.Log(c.clientName);
+            Debug.Log("NEMEEE"+c.clientName);
             Broadcast(c.clientName + " has connected", clients);
             return;
         }
@@ -135,7 +146,7 @@ public class ServerClient {
     public string clientName;
 
     public ServerClient(TcpClient clientSocket) {
-        clientName = "";
+        clientName = "GUEST";
         tcp = clientSocket;
     }
 }

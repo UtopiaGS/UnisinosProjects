@@ -29,7 +29,7 @@ public class Client : MonoBehaviour
     {
         ClientName = NameField.text;
         Debug.Log("NAME>>> " + ClientName);
-        if (string.IsNullOrEmpty(ClientName)) ClientName = "Guest";
+       // if (string.IsNullOrEmpty(ClientName)) ClientName = "Guest";
         LoginPanel.SetActive(false);
         //if already connected, ignore this function
         if (_socketReady)
@@ -85,7 +85,7 @@ public class Client : MonoBehaviour
     private void OnIncomingData(string data) {
 
         if (data=="%NAME") {
-            Debug.Log("CLIENR NAME >> " + ClientName);
+            Debug.Log("CLIENT NAME >> " + ClientName);
             Send("&NAME|" + ClientName);
             return;
         }
