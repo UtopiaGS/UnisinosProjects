@@ -104,6 +104,7 @@ public class Client : MonoBehaviour
 
     public void OnSendButton() {
         string message = MessageField.text;
+        MessageField.text = string.Empty;
         Send(message);
     }
 

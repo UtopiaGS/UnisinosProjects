@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public const string Attack1Trigger = "Attack1";
+    public const string Attack2Trigger = "Attack2";
+    public const string DeathTrigger ="Death";
+    public const string WalkTrigger = "Walk";
+    public const string IdleTrigger = "Idle";
+
+    public float WalkSpeed=1f;
+
     public GameObject RootGameObject;
     private List<CharacterSelection> _shaderOutline = new List<CharacterSelection>();
     private List<CapsuleCollider> _colliders = new List<CapsuleCollider>();
@@ -11,9 +19,11 @@ public class Character : MonoBehaviour
     public GameObject Target;
     private Vector3 _startPos;
     private Quaternion _startRotation;
+    private Animator anim;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        anim = GetComponent<Animator>();
         _startPos = transform.position;
         _startRotation = transform.rotation;
         int numOfChildren = transform.childCount;//compte le nombre d'enfant du GameObject
@@ -58,22 +68,26 @@ public class Character : MonoBehaviour
     }
 
     public void MoveToTarget(Vector3 endPos) {
-        transform.LookAt(endPos);
+        transform.LookAt(endPos);       
         StartCoroutine(MoveToTarget(transform.position, endPos, transform, timeToMove));
     }
 
     IEnumerator MoveToTarget(Vector3 startPos, Vector3 endPos, Transform actor, float time)
     {
         float elapsedTime = 0;
+        anim.SetTrigger(WalkTrigger);
         while (elapsedTime < time)
         {           
             // Debug.Log("elapsed time" + elapsedTime);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime*0.5f;
             actor.position = Vector3.Lerp(startPos, endPos, (elapsedTime / time));
 
             yield return null;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
+        anim.SetTrigger(Attack1Trigger);
+        yield return new WaitForSeconds(1.5f);
+        anim.SetTrigger(WalkTrigger);
         transform.LookAt(_startPos);
         endPos = _startPos;
         startPos = transform.position;
@@ -81,12 +95,13 @@ public class Character : MonoBehaviour
         while (elapsedTime < time)
         {
             // Debug.Log("elapsed time" + elapsedTime);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime * 0.5f;
             actor.position = Vector3.Lerp(startPos, endPos, (elapsedTime / time));
-
             yield return null;
         }
+        anim.SetTrigger(IdleTrigger);
         transform.rotation=_startRotation;
+
     }
 
     // Update is called once per frame

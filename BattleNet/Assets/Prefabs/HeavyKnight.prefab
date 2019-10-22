@@ -886,7 +886,7 @@ Animator:
   m_GameObject: {fileID: 7330963600251622525}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ba24e610e0a338545b447ff44a3cf1cc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 11be109320246d44ead35afff7847209, type: 2}
+  m_Controller: {fileID: 22100000, guid: e389263311909e040912852a355f5888, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -921,7 +921,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.76
-  m_Height: 2.51
+  m_Height: 1.92
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &1859809697938320982
@@ -939,7 +939,6 @@ MonoBehaviour:
   _outlineValue: 0.0476
   OutlineColorTurn: {r: 0, g: 0.6880622, b: 1, a: 0.85490197}
   OutlineColorTarget: {r: 1, g: 0, b: 0, a: 1}
-  _renderes: {fileID: 7330963600254802191}
 --- !u!1 &7330963600251622527
 GameObject:
   m_ObjectHideFlags: 0
