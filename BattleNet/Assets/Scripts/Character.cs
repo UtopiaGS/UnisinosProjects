@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class Character : MonoBehaviour
     public GameObject RootGameObject;
     private List<CharacterSelection> _shaderOutline = new List<CharacterSelection>();
     private List<CapsuleCollider> _colliders = new List<CapsuleCollider>();
-    public GameObject Slider;
+    public Slider Slider;
+    public GameObject AttackPanels;
     public float timeToMove;
     public GameObject Target;
     private Vector3 _startPos;
@@ -69,6 +71,7 @@ public class Character : MonoBehaviour
     }
 
     public void MoveToTarget(Vector3 endPos) {
+        AttackPanels.SetActive(false);
         transform.LookAt(endPos);       
         StartCoroutine(MoveToTarget(transform.position, endPos, transform, timeToMove));
     }
@@ -104,6 +107,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         transform.rotation=_startRotation;
         anim.ResetTrigger(WalkTrigger);
+        TurnsController.instance.ChangeTurn();
 
     }
 
@@ -125,12 +129,11 @@ public class Character : MonoBehaviour
 
     void OnMouseDown()
     {
-       // Debug.Log("ENTROU DISGRAÇA");
-        //if (Input.GetKeyDown(KeyCode.Mouse0)){
-            // Whatever you want it to do.
-            TurnsController.instance.AttackTarget(transform.position);
-       // }
-      
+        AttackPanels.SetActive(true);
+        foreach (CharacterSelection selection in _shaderOutline) {
+            selection.SetTargetColor();
+        }        
+        TurnsController.instance.SetCurrentTarget(this);
     }
 
     void OnMouseExit()

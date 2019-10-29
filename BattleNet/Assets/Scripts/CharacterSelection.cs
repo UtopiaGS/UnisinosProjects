@@ -21,7 +21,9 @@ public class CharacterSelection : MonoBehaviour
         SetOutlineShader(_outlineValue, OutlineColorTurn);
     }
 
-    public void SetTargetColor() { }
+    public void SetTargetColor() {
+        SetOutlineShader(_outlineValue, OutlineColorTarget);
+    }
 
     public void CleanSelection() {
         SetOutlineShader(0, Color.red);

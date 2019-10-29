@@ -10,6 +10,8 @@ public class TurnsController : MonoBehaviour
     private int indexTurn = 1;
     public int IndexCharacter => indexTurn;
     PlayerCharacters _currentPlayer;
+    Character _currentCharacter;
+    private Character _currentTarget;
 
     // Start is called before the first frame update
     void Awake()
@@ -24,7 +26,11 @@ public class TurnsController : MonoBehaviour
         }
     }
 
-   public  void ChangeTurn() {
+    public void SetCurrentTarget(Character target) {
+        _currentTarget = target;
+    }
+
+   public void ChangeTurn() {
         ClearTurn();
         indexTurn++;
         indexTurn = indexTurn % Players.Count;
@@ -36,11 +42,8 @@ public class TurnsController : MonoBehaviour
         _currentPlayer.CharacterTurn();
     }
 
-    public void AttackTarget(Vector3 endPos) {
-
-        Debug.Log("FOI DESGRAÇA");
-        _currentPlayer.ChracterTurn.MoveToTarget(endPos);
-
+    public void AttackTarget() {
+        _currentPlayer.ChracterTurn.MoveToTarget(_currentTarget.transform.position);
     }
 
     private void Start()

@@ -27,7 +27,6 @@ public class PlayerCharacters : MonoBehaviour
         _characterTurn = currentCharacter;
 
         Debug.Log(currentCharacter.gameObject.name +"  "+_indexTurn);
-
     }
 
     public void EndTurn() {

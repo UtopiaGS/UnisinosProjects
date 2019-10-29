@@ -1863,6 +1863,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outlineValue: 0.0365
+  OutlineColorTurn: {r: 0, g: 0, b: 0, a: 0}
+  OutlineColorTarget: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8004727206870431848
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3771,7 @@ GameObject:
   - component: {fileID: 8004727206870590890}
   - component: {fileID: 8004727206879939158}
   - component: {fileID: 205173735889067906}
+  - component: {fileID: 4823262690441905866}
   m_Layer: 0
   m_Name: Barbarian
   m_TagString: Untagged
@@ -3823,7 +3826,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a273dcf77fef23479b11fede83d1afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WalkSpeed: 1
   RootGameObject: {fileID: 8004727206870432138}
+  Slider: {fileID: 0}
+  AttackPanels: {fileID: 0}
+  timeToMove: 0
+  Target: {fileID: 0}
+--- !u!114 &4823262690441905866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004727206870432138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4185c02135556438c04155871fd481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlineValue: 0.0323
+  OutlineColorTurn: {r: 0, g: 0.6880622, b: 1, a: 0.85490197}
+  OutlineColorTarget: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &8004727206870432142
 GameObject:
   m_ObjectHideFlags: 0
