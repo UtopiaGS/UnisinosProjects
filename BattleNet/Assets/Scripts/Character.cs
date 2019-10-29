@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     public GameObject RootGameObject;
     private List<CharacterSelection> _shaderOutline = new List<CharacterSelection>();
     private List<CapsuleCollider> _colliders = new List<CapsuleCollider>();
+    public GameObject Slider;
     public float timeToMove;
     public GameObject Target;
     private Vector3 _startPos;
@@ -100,7 +101,9 @@ public class Character : MonoBehaviour
             yield return null;
         }
         anim.SetTrigger(IdleTrigger);
+        yield return new WaitForSeconds(0.05f);
         transform.rotation=_startRotation;
+        anim.ResetTrigger(WalkTrigger);
 
     }
 
