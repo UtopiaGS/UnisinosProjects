@@ -10,7 +10,7 @@ public class Server : MonoBehaviour
 {
     [SerializeField] int port = 6321;
 
-    private List<ServerClient> clients;
+    private List<ServerClient> clients ;
     private List<ServerClient> disconnectedList;
 
     private TcpListener server;
@@ -18,17 +18,24 @@ public class Server : MonoBehaviour
 
     private void Start()
     {
+     
+    }
+
+    public void StartServer() {
         clients = new List<ServerClient>();
         disconnectedList = new List<ServerClient>();
 
-        try {
+        try
+        {
             server = new TcpListener(IPAddress.Any, port);
             server.Start();
 
             StartListening();
             serverStarted = true;
 
-        } catch(Exception e) {
+        }
+        catch (Exception e)
+        {
             Debug.Log(e.Message);
         }
         Debug.Log("Server started at port " + port.ToString());
@@ -77,11 +84,11 @@ public class Server : MonoBehaviour
     {
         if (data.Contains("&NAME")) {
             c.clientName = data.Split('|')[1];
-            Debug.Log(c.clientName);
+            Debug.Log(c.clientName + " has connected!!!!");
             Broadcast(c.clientName + " has connected", clients);
             return;
         }
-        //Debug.Log(c.clientName + " sent: " + data);
+        Debug.Log(c.clientName + " sent: " + data);
         //Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
         Broadcast(c.clientName + ": "+data,clients);
     }
@@ -130,6 +137,7 @@ public class Server : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public class ServerClient {
     public TcpClient tcp;
     public string clientName;

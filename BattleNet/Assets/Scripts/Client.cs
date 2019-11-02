@@ -8,8 +8,8 @@ using System;
 
 public class Client : MonoBehaviour
 {
-    public GameObject ChatContainer;
-    public GameObject MessagePrefab;
+   // public GameObject ChatContainer;
+    //public GameObject MessagePrefab;
     private bool _socketReady;
     private TcpClient _socket;
     private NetworkStream _stream;
@@ -18,7 +18,7 @@ public class Client : MonoBehaviour
 
     public InputField HostInput;
     public InputField PortInput;
-    public InputField MessageField;
+   // public InputField MessageField;
     public InputField NameField;
 
     public GameObject LoginPanel;
@@ -90,8 +90,8 @@ public class Client : MonoBehaviour
             return;
         }
         // Debug.Log("Server: " + data);
-       GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
-        go.GetComponentInChildren<Text>().text = data;
+       //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
+       // go.GetComponentInChildren<Text>().text = data;
     }
 
     private void Send(string data) {
@@ -103,8 +103,8 @@ public class Client : MonoBehaviour
     }
 
     public void OnSendButton() {
-        string message = MessageField.text;
-        Send(message);
+        //string message = MessageField.text;
+       // Send(message);
     }
 
     private void CloseSocket() {
