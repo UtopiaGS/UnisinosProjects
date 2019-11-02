@@ -537,7 +537,6 @@ GameObject:
   - component: {fileID: 7276876336258132517}
   - component: {fileID: 4634489879589428770}
   - component: {fileID: 1314385238}
-  - component: {fileID: 1314385239}
   - component: {fileID: 3210037714693022687}
   m_Layer: 0
   m_Name: Knight
@@ -596,24 +595,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a273dcf77fef23479b11fede83d1afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WalkSpeed: 1
   RootGameObject: {fileID: 7276876336265475145}
+  Slider: {fileID: 0}
+  AttackPanels: {fileID: 0}
   timeToMove: 1.5
   Target: {fileID: 0}
 --- !u!136 &1314385238
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7276876336265475145}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &1314385239
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -642,7 +630,6 @@ MonoBehaviour:
   _outlineValue: 0.1
   OutlineColorTurn: {r: 0, g: 0.91223574, b: 1, a: 0.84705883}
   OutlineColorTarget: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
-  _renderes: {fileID: 7276876336262501523}
 --- !u!1 &7276876336265475453
 GameObject:
   m_ObjectHideFlags: 0

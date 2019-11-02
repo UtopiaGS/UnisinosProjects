@@ -13,7 +13,7 @@ public class CharacterSelection : MonoBehaviour
     Renderer _renderes;
     // Start is called before the first frame update
     void Awake()
-    {
+    {       
         _renderes = GetComponentInChildren<Renderer>();      
     }
 
@@ -30,9 +30,10 @@ public class CharacterSelection : MonoBehaviour
     }
 
     void SetOutlineShader(float outlineValue, Color color) {
+
         for (int i = 0; i < _renderes.materials.Length; i++)
         {
-           _renderes.sharedMaterials[i].SetFloat("_Outline", outlineValue);
+            _renderes.sharedMaterials[i].SetFloat("_Outline", outlineValue);
             _renderes.sharedMaterials[i].SetColor("_OutlineColor", color);
         }
 

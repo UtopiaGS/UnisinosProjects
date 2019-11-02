@@ -64,6 +64,7 @@ public class Character : MonoBehaviour
         {
             _shaderOutline[i].CleanSelection();
         }
+        Debug.Log(gameObject.name+ " "+_colliders.Count);
         for (int i = 0; i < _colliders.Count; i++)
         {
             _colliders[i].enabled = true;
