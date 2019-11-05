@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PoliceCheif.unity
     guid: 3a1b410250ad29f4eb0836faadfe2ed8
+  - enabled: 1
+    path: Assets/Scenes/JailEnding.unity
+    guid: c00fec6a5a7c10c4d998a070e461cbd9
   m_configObjects: {}
