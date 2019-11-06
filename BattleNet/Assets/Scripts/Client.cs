@@ -89,6 +89,7 @@ public class Client : MonoBehaviour
             Send("&NAME|" + ClientName);
             return;
         }
+        Debug.Log(data);
         // Debug.Log("Server: " + data);
        //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
        // go.GetComponentInChildren<Text>().text = data;

@@ -9,6 +9,7 @@ public class MultiplayerManager : MonoBehaviour
     public Client HostClient;
     public Client Client;
     public Dropdown HostOption;
+    public GameObject WaitForPlayersPanel;
 
     public void Connect()
     {
@@ -17,7 +18,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         if (HostOption.value == 1)
         {
-            EnterMatch();
+            EnterMatch();           
         }
     }
 
@@ -28,7 +29,8 @@ public class MultiplayerManager : MonoBehaviour
     }
 
     public void EnterMatch() {
-        Client.OnConnectedToServer();        
+        Client.OnConnectedToServer();
+        WaitForPlayersPanel.SetActive(false);
         server.enabled = false;
     }
     // Start is called before the first frame update

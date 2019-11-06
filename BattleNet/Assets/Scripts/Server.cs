@@ -13,6 +13,8 @@ public class Server : MonoBehaviour
     private List<ServerClient> clients ;
     private List<ServerClient> disconnectedList;
 
+    public GameObject WaitingPlayersPopUp;
+
     private TcpListener server;
     private bool serverStarted;
 
@@ -78,6 +80,14 @@ public class Server : MonoBehaviour
             clients.Remove(disconnectedList[i]);
             disconnectedList.RemoveAt(i);
         }
+
+        if (clients.Count <= 1 && !WaitingPlayersPopUp.activeSelf)
+        {
+            WaitingPlayersPopUp.SetActive(true);
+        }
+        else if(clients.Count > 1 && WaitingPlayersPopUp.activeSelf) {
+            WaitingPlayersPopUp.SetActive(false);
+        }
     }
 
     private void OnIncomingData(ServerClient c, string data)
@@ -85,7 +95,9 @@ public class Server : MonoBehaviour
         if (data.Contains("&NAME")) {
             c.clientName = data.Split('|')[1];
             Debug.Log(c.clientName + " has connected!!!!");
+            Debug.Log(clients.Count.ToString());
             Broadcast(c.clientName + " has connected", clients);
+            Broadcast(clients.Count.ToString(),clients);
             return;
         }
         Debug.Log(c.clientName + " sent: " + data);
@@ -120,6 +132,7 @@ public class Server : MonoBehaviour
 
         //send a message to everyone, say someone has connected;        
         Broadcast("%NAME", new List<ServerClient> { clients[clients.Count - 1] });
+        Broadcast(clients.Count.ToString(), new List<ServerClient> { clients[clients.Count - 1] });
     }
 
     private void Broadcast(string data, List<ServerClient> cli) {
