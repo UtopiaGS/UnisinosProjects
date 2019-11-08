@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JailEnding.unity
     guid: c00fec6a5a7c10c4d998a070e461cbd9
+  - enabled: 1
+    path: Assets/Scenes/GasStation.unity
+    guid: 460002fccd8cddc4aad98feb2b45eff3
   m_configObjects: {}
