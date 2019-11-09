@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GasStation.unity
     guid: 460002fccd8cddc4aad98feb2b45eff3
+  - enabled: 1
+    path: Assets/Scenes/PromotionEnd.unity
+    guid: d01a0d0686be9a9408bff58ab03f0192
+  - enabled: 1
+    path: Assets/Scenes/DeathEnding.unity
+    guid: 0f33cc2854a79de4a977fb238a12fe61
   m_configObjects: {}
