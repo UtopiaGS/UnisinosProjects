@@ -34,22 +34,21 @@ public class TurnsController : MonoBehaviour
         ClearTurn();
         indexTurn++;
         indexTurn = indexTurn % Players.Count;
-       // Debug.Log(indexTurn);
+        Debug.Log(indexTurn);
         _currentPlayer = Players[indexTurn];
 
-       // Debug.Log(_currentPlayer.gameObject.name + "  " + indexTurn);
+        Debug.Log(_currentPlayer.gameObject.name + "  " + indexTurn);
 
         _currentPlayer.CharacterTurn();
+        _currentPlayer.SendStartTurn();
     }
 
     public void AttackTarget() {
+        _currentPlayer.SendAttackMessage(_currentTarget);
         _currentPlayer.ChracterTurn.MoveToTarget(_currentTarget.transform.position);
     }
 
-    private void Start()
-    {
-        ChangeTurn();
-    }
+  
 
     // Update is called once per frame
     void Update()

@@ -89,6 +89,12 @@ public class Client : MonoBehaviour
             Send("&NAME|" + ClientName);
             return;
         }
+        if (data.Contains("%STARTGAME")) {
+            Debug.Log("START GAME >> " + data);
+            Send("&STARTGAME|");
+            TurnsController.instance.ChangeTurn();
+            return;
+        }
         Debug.Log(data);
         // Debug.Log("Server: " + data);
        //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
@@ -103,9 +109,9 @@ public class Client : MonoBehaviour
         _writer.Flush();
     }
 
-    public void OnSendButton() {
-        //string message = MessageField.text;
-       // Send(message);
+    public void OnSendButton(string text) {
+        string message = text;
+        Send(message);
     }
 
     private void CloseSocket() {

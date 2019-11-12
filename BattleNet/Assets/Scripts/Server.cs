@@ -15,6 +15,8 @@ public class Server : MonoBehaviour
 
     public GameObject WaitingPlayersPopUp;
 
+    private bool _gameStarted=false;
+
     private TcpListener server;
     private bool serverStarted;
 
@@ -84,9 +86,25 @@ public class Server : MonoBehaviour
         if (clients.Count <= 1 && !WaitingPlayersPopUp.activeSelf)
         {
             WaitingPlayersPopUp.SetActive(true);
+            if (_gameStarted)
+            {
+                _gameStarted = false;
+            }
         }
         else if(clients.Count > 1 && WaitingPlayersPopUp.activeSelf) {
             WaitingPlayersPopUp.SetActive(false);
+            if (!_gameStarted) {
+                _gameStarted = true;
+                Debug.Log("STARTED!!!!");
+                StartGame();
+            }
+        }
+    }
+
+    public void StartGame() {
+        foreach (ServerClient c in clients)
+        {
+            Broadcast(c.clientName + "%STARTGAME", clients);
         }
     }
 
@@ -98,6 +116,12 @@ public class Server : MonoBehaviour
             Debug.Log(clients.Count.ToString());
             Broadcast(c.clientName + " has connected", clients);
             Broadcast(clients.Count.ToString(),clients);
+            return;
+        }
+        //&STARTGAME|
+        if (data.Contains("%STARTGAME"))
+        {            
+            Broadcast("game start", clients);
             return;
         }
         Debug.Log(c.clientName + " sent: " + data);

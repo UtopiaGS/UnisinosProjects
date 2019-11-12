@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CharID {
+    Char1,
+    Char2,
+    Char3,
+}
+
+public enum PlayerID
+{
+    PLAYER1,
+    PLAYER2,
+}
+
 public class Character : MonoBehaviour
 {
     public const string Attack1Trigger = "Attack1";
@@ -10,6 +22,8 @@ public class Character : MonoBehaviour
     public const string DeathTrigger ="Death";
     public const string WalkTrigger = "Walk";
     public const string IdleTrigger = "Idle";
+
+    public string ID;
 
     public float WalkSpeed=1f;
 
