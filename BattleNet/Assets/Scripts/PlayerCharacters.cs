@@ -19,7 +19,7 @@ public class PlayerCharacters : MonoBehaviour
     }
 
     public void CharacterTurn() {
-        EndTurn();
+       // EndTurn();
         SetCollidersActivation(false);
         _indexTurn++;
         _indexTurn = _indexTurn % Characters.Count;

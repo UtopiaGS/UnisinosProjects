@@ -37,7 +37,15 @@ public class Client : MonoBehaviour
 
         //default host / port values
         string host = "127.0.0.1";
-        int port = 6321;
+        int port;
+        try
+        {
+            int.TryParse(PortInput.text, out port);
+        }
+        catch (Exception e) {
+            Debug.Log(e);
+            port = 41222;
+        }
 
         if (!string.IsNullOrEmpty(HostInput.text)) {
             host = HostInput.text;
@@ -47,11 +55,16 @@ public class Client : MonoBehaviour
         {
             port = Int32.Parse(PortInput.text);
         }
+        else {
+            port = 41222;
+        }
 
         //Create the socket
+        Debug.Log(port);
 
         try {
             _socket = new TcpClient(host, port);
+           
             _stream = _socket.GetStream();
             _writer = new StreamWriter(_stream);
             _reader = new StreamReader(_stream);
@@ -85,7 +98,7 @@ public class Client : MonoBehaviour
     private void OnIncomingData(string data) {
 
         if (data=="%NAME") {
-            Debug.Log("CLIENR NAME >> " + ClientName);
+            Debug.Log("CLIENT NAME >> " + ClientName);
             Send("&NAME|" + ClientName);
             return;
         }

@@ -5,13 +5,16 @@ using System.Net.Sockets;
 using System;
 using System.Net;
 using System.IO;
+using UnityEngine.UI;
 
 public class Server : MonoBehaviour
 {
-    [SerializeField] int port = 6321;
+    [SerializeField] int port = 41222;
 
     private List<ServerClient> clients ;
     private List<ServerClient> disconnectedList;
+    
+    public InputField PortInput;
 
     public GameObject WaitingPlayersPopUp;
 
@@ -31,18 +34,25 @@ public class Server : MonoBehaviour
 
         try
         {
-            server = new TcpListener(IPAddress.Any, port);
+            try
+            {
+                server = new TcpListener(IPAddress.Any, int.Parse(PortInput.text));
+            }
+            catch (Exception e) {
+                Debug.Log(e.Message +" porta inválida");
+                server = new TcpListener(IPAddress.Any, port);
+            }
             server.Start();
 
             StartListening();
             serverStarted = true;
 
+        Debug.Log("Server started at port " + port.ToString());
         }
         catch (Exception e)
         {
             Debug.Log(e.Message);
         }
-        Debug.Log("Server started at port " + port.ToString());
     }
 
     private void Update()
@@ -83,22 +93,7 @@ public class Server : MonoBehaviour
             disconnectedList.RemoveAt(i);
         }
 
-        if (clients.Count <= 1 && !WaitingPlayersPopUp.activeSelf)
-        {
-            WaitingPlayersPopUp.SetActive(true);
-            if (_gameStarted)
-            {
-                _gameStarted = false;
-            }
-        }
-        else if(clients.Count > 1 && WaitingPlayersPopUp.activeSelf) {
-            WaitingPlayersPopUp.SetActive(false);
-            if (!_gameStarted) {
-                _gameStarted = true;
-                Debug.Log("STARTED!!!!");
-                StartGame();
-            }
-        }
+      
     }
 
     public void StartGame() {
@@ -116,10 +111,21 @@ public class Server : MonoBehaviour
             Debug.Log(clients.Count.ToString());
             Broadcast(c.clientName + " has connected", clients);
             Broadcast(clients.Count.ToString(),clients);
+
+            if (clients.Count > 1 )
+            {
+                WaitingPlayersPopUp.SetActive(false);
+                if (!_gameStarted)
+                {
+                    _gameStarted = true;
+                    Debug.Log("STARTED!!!!");
+                    StartGame();
+                }
+            }
             return;
         }
         //&STARTGAME|
-        if (data.Contains("%STARTGAME"))
+        if (data.Contains("&STARTGAME"))
         {            
             Broadcast("game start", clients);
             return;
