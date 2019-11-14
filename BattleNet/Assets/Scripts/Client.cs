@@ -102,12 +102,13 @@ public class Client : MonoBehaviour
             Send("&NAME|" + ClientName);
             return;
         }
-        if (data.Contains("%STARTGAME")) {
-            Debug.Log("START GAME >> " + data);
-            Send("&STARTGAME|");
+        if (data=="%STARTGAME") {
+            Debug.Log("START GAME CHANGE CALLL>> " + data);
+            Send("&STARTGAME");
             TurnsController.instance.ChangeTurn();
             return;
         }
+      
         Debug.Log(data);
         // Debug.Log("Server: " + data);
        //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);

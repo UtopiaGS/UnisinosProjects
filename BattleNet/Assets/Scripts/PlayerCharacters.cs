@@ -37,8 +37,8 @@ public class PlayerCharacters : MonoBehaviour
             Characters[i].EndOwnerTurn();
         }
         SetCollidersActivation(true);
-        string endTurn = string.Concat("%ENDTURN ", ID, " ", _characterTurn.ID);
-        PlayerClient.OnSendButton(endTurn);
+        //string endTurn = string.Concat("%ENDTURN ", ID, " ", _characterTurn.ID);
+        //PlayerClient.OnSendButton(endTurn);
     }
 
     public void SendAttackMessage(Character currentTarget) {
@@ -49,6 +49,7 @@ public class PlayerCharacters : MonoBehaviour
     public void SendStartTurn()
     {
         string attack = string.Concat("%TURN| ", ID, " +", _characterTurn.ID, ">", _characterTurn.ID);
+        Debug.Log("SEND TURN START!!!");
         PlayerClient.OnSendButton(attack);
     }
 

@@ -41,6 +41,7 @@ public class TurnsController : MonoBehaviour
 
         _currentPlayer.CharacterTurn();
         _currentPlayer.SendStartTurn();
+        Debug.Log("SEND TURN START CALLED!!!");
     }
 
     public void AttackTarget() {
