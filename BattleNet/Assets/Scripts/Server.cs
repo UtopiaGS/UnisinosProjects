@@ -15,6 +15,9 @@ public class Server : MonoBehaviour
     private List<ServerClient> clients;
     private List<ServerClient> disconnectedList;
 
+    public List<ServerClient> Clients=>clients;
+    public List<ServerClient> DisconnectedList=> disconnectedList;
+
     public InputField PortInput;
 
     public GameObject WaitingPlayersPopUp;
@@ -23,6 +26,8 @@ public class Server : MonoBehaviour
     private bool serverStarted;
 
     private Thread mainThread;
+
+    public int CurrentPlayerIndex;
 
 
     private void Start()
@@ -103,13 +108,12 @@ public class Server : MonoBehaviour
 
     private void OnIncomingData(ServerClient c, string data)
     {
+        /*
         if (data.Contains("&NAME"))
         {
             c.clientName = data.Split('|')[1];
             Broadcast(c.clientName + " has connected", clients);
             Broadcast("Clients connected>>>" + clients.Count.ToString(), clients);
-
-            
 
             return;
         }
@@ -122,6 +126,9 @@ public class Server : MonoBehaviour
         Debug.Log(c.clientName + " sent: " + data);
         //Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
         Broadcast(c.clientName + ": " + data, clients);
+        */
+        Debug.Log(c.clientName + " sent: " + data);
+        CommandReader.instance.ServerReadCommand(this, c, data);
     }
 
     private bool IsConnected(TcpClient c)
@@ -173,19 +180,22 @@ public class Server : MonoBehaviour
 
                 Debug.Log("STARTED, BROADCAST!!!!");
 
-                Broadcast("%STARTGAME", clients);
+                Broadcast("%STARTGAME|0", clients);
+
+              
             }
 
             StartListening();
         });
     }
 
-    private void Broadcast(string data, params ServerClient[] cli)
+    public void Broadcast(string data, params ServerClient[] cli)
     {
         Broadcast(data, (IEnumerable<ServerClient>)cli);
     }
+
     
-    private void Broadcast(string data, IEnumerable<ServerClient> cli)
+    public void Broadcast(string data, IEnumerable<ServerClient> cli)
     {
         foreach (ServerClient c in cli)
         {

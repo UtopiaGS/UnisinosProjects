@@ -23,6 +23,8 @@ public class Client : MonoBehaviour
 
     public GameObject LoginPanel;
 
+    public PlayerCharacters Player;
+
     public string ClientName;
 
     public void OnConnectedToServer()
@@ -97,25 +99,32 @@ public class Client : MonoBehaviour
 
     private void OnIncomingData(string data) {
 
+        /*
         if (data=="%NAME") {
             Debug.Log("CLIENT NAME >> " + ClientName);
             Send("&NAME|" + ClientName);
             return;
         }
-        if (data=="%STARTGAME") {
+        if (data=="%STARTGAME|0") {
             Debug.Log("START GAME CHANGE CALLL>> " + data);
             Send("&STARTGAME");
-            TurnsController.instance.ChangeTurn();
+            TurnsController.instance.ChangeTurn(0);
             return;
         }
-      
+        if (data.Contains("%END_TURN|0")) {
+            Debug.Log("TERMINA TURNOOOOOO::::");
+            return;
+        }
+        
         Debug.Log(data);
+        */
+        CommandReader.instance.ClientReadCommand(this, data);
         // Debug.Log("Server: " + data);
-       //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
-       // go.GetComponentInChildren<Text>().text = data;
+        //GameObject go = Instantiate(MessagePrefab, ChatContainer.transform);
+        // go.GetComponentInChildren<Text>().text = data;
     }
 
-    private void Send(string data) {
+    public void Send(string data) {
         if (!_socketReady)
             return;
 

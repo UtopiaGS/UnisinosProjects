@@ -4,21 +4,36 @@ using UnityEngine;
 
 public class PlayerCharacters : MonoBehaviour
 {
-    public string ID;
+    public int ID;
     public List<Character> Characters = new List<Character>();
+
+    public PlayerCharacters Oponent;
+
     private int _indexTurn=2;
     public int IndexCharacter => _indexTurn;
 
     private Character _characterTurn;
     public Character ChracterTurn=> _characterTurn;
     public Client PlayerClient;
+
+    private string _playerID;
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < Characters.Count; i++)
+        {
+            Characters[i].OwnerID = ID;
+            Characters[i].Owner = this;
+            Characters[i].ID = i;
+        }
+          
         
-    }
 
-    public void CharacterTurn() {
+        PlayerClient.Player = this;
+    }
+        
+
+    public int CharacterTurn() {
        // EndTurn();
         SetCollidersActivation(false);
         _indexTurn++;
@@ -29,27 +44,27 @@ public class PlayerCharacters : MonoBehaviour
         _characterTurn = currentCharacter;
 
         Debug.Log(currentCharacter.gameObject.name +"  "+_indexTurn);
+        return _indexTurn;
     }
 
     public void EndTurn() {
+        
+        SetCollidersActivation(true);
+        string endTurn = CommandReader.SendCommand(Command.END_TURN, Sender.CLIENT, ID.ToString(), _characterTurn.ID.ToString(),"", 0);
+        PlayerClient.OnSendButton(endTurn);
+       
+    }
+
+    public void UpdateOutlines() {
         for (int i = 0; i < Characters.Count; i++)
         {
             Characters[i].EndOwnerTurn();
         }
-        SetCollidersActivation(true);
-        //string endTurn = string.Concat("%ENDTURN ", ID, " ", _characterTurn.ID);
-        //PlayerClient.OnSendButton(endTurn);
     }
 
     public void SendAttackMessage(Character currentTarget) {
 
-        string attack = string.Concat("%ATTACK ", ID, " +", _characterTurn.ID, ">", currentTarget.ID);
-        PlayerClient.OnSendButton(attack);
-    }
-    public void SendStartTurn()
-    {
-        string attack = string.Concat("%TURN| ", ID, " +", _characterTurn.ID, ">", _characterTurn.ID);
-        Debug.Log("SEND TURN START!!!");
+        string attack = CommandReader.SendCommand(Command.ATTACK, Sender.CLIENT, ID.ToString(), _characterTurn.ID.ToString(),currentTarget.ID.ToString(), 0);
         PlayerClient.OnSendButton(attack);
     }
 

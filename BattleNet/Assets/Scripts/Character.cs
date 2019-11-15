@@ -19,11 +19,11 @@ public class Character : MonoBehaviour
 {
     public const string Attack1Trigger = "Attack1";
     public const string Attack2Trigger = "Attack2";
-    public const string DeathTrigger ="Death";
+    public const string DeathTrigger = "Death";
     public const string WalkTrigger = "Walk";
     public const string IdleTrigger = "Idle";
 
-    public string ID;
+    [HideInInspector] public int ID;
 
     public float WalkSpeed=1f;
 
@@ -33,10 +33,14 @@ public class Character : MonoBehaviour
     public Slider Slider;
     public GameObject AttackPanels;
     public float timeToMove;
-    public GameObject Target;
+    public Character Target;
     private Vector3 _startPos;
     private Quaternion _startRotation;
     private Animator anim;
+
+    public PlayerCharacters Owner;
+
+    public int OwnerID;
     // Start is called before the first frame update
     void Awake()
     {
@@ -85,11 +89,13 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void MoveToTarget(Vector3 endPos) {
+    public void MoveToTarget(Character target) {
         AttackPanels.SetActive(false);
-        transform.LookAt(endPos);       
-        StartCoroutine(MoveToTarget(transform.position, endPos, transform, timeToMove));
+        transform.LookAt(target.transform.position);       
+        StartCoroutine(MoveToTarget(transform.position, target.transform.position, transform, timeToMove));
+      
     }
+
 
     IEnumerator MoveToTarget(Vector3 startPos, Vector3 endPos, Transform actor, float time)
     {
@@ -122,8 +128,8 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         transform.rotation=_startRotation;
         anim.ResetTrigger(WalkTrigger);
-        TurnsController.instance.ChangeTurn();
-
+        
+        Owner.EndTurn();
     }
 
     // Update is called once per frame
