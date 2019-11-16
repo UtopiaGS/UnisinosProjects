@@ -120,13 +120,15 @@ public class CommandReader : MonoBehaviour
         }
         Debug.Log(serverClients.clientName + " sent: " + data);
         //Broadcast("<b>"+c.clientName + ": </b>"+data, clients);
-        _server.Broadcast(serverClients.clientName + ": " + data, _server.Clients);
+        //_server.Broadcast(serverClients.clientName + ": " + data, _server.Clients);
 
         if (data.Contains("&ATTACK>")) {
             string attack = data;
             attack = attack.Replace("&", "%");
+            int damage = Random.Range(10, 20);
+            attack += damage.ToString() + "#";
             Debug.Log("ATTAAAAAAAAACKKKKKKK!!!");
-            Debug.Log(attack);
+            Debug.Log("Server Broadcast: "+attack);
             _server.Broadcast(attack, _server.Clients);
             return;
         }

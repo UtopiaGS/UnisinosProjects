@@ -44,7 +44,7 @@ public class TurnsController : MonoBehaviour
             {
                 for (int j = 0; j < Players[i].Characters.Count; j++)
                 {
-                    Debug.Log("Desabilita todos colisores");
+                    //Debug.Log("Desabilita todos colisores");
                     Players[i].Characters[j].EnableColliders(false);
                 }
             }
@@ -56,7 +56,7 @@ public class TurnsController : MonoBehaviour
                 if (instancePlayer != Players[i]) {
                     for (int j = 0; j < Players[i].Characters.Count; j++)
                     {
-                        Debug.Log("Habilita colisor dos adversários");
+                       // Debug.Log("Habilita colisor dos adversários");
                         Players[i].Characters[j].EnableColliders(true);
                     }
                 }
@@ -69,7 +69,6 @@ public class TurnsController : MonoBehaviour
     {
         ClearTurn();
         indexTurn = turn;
-        Debug.Log(turn);
         _currentPlayer = Players[indexTurn];
 
         Debug.Log(_currentPlayer.gameObject.name + "  " + indexTurn);
