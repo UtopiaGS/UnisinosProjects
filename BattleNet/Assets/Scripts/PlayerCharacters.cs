@@ -47,6 +47,7 @@ public class PlayerCharacters : MonoBehaviour
         return _indexTurn;
     }
 
+
     public void EndTurn() {
         
         SetCollidersActivation(true);

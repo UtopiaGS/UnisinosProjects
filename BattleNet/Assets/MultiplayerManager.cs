@@ -26,11 +26,13 @@ public class MultiplayerManager : MonoBehaviour
     public void StartHostMatch() {
         server.StartServer();
         HostClient.OnConnectedToServer();
+        TurnsController.instance.instancePlayer = HostClient.gameObject.GetComponent<PlayerCharacters>();
     }
 
     public void EnterMatch() {
         Client.OnConnectedToServer();
         WaitForPlayersPanel.SetActive(false);
+        TurnsController.instance.instancePlayer = Client.gameObject.GetComponent<PlayerCharacters>();
         server.enabled = false;
     }
     // Start is called before the first frame update

@@ -89,6 +89,7 @@ public class Character : MonoBehaviour
         }
     }
 
+
     public void MoveToTarget(Character target) {
         AttackPanels.SetActive(false);
         transform.LookAt(target.transform.position);       
