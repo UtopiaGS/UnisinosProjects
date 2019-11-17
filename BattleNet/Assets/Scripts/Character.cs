@@ -40,6 +40,20 @@ public class Character : MonoBehaviour
 
     public PlayerCharacters Owner;
 
+    [Header("Attack Parameters")]
+    [Range(0, 50)]
+    [SerializeField] private int _minAttack;
+    [Range(0, 50)]
+    [SerializeField] private int _maxAttack;
+    [Range(0, 50)]
+    [SerializeField] private int _criticalAttack;
+    [Range(0, 50)]
+    [SerializeField] private int _percentOfCritical;
+
+    private int _damageToInflict;
+    private int _damageToReceive;
+
+
     public int OwnerID;
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +70,20 @@ public class Character : MonoBehaviour
             _shaderOutline.Add(GetComponentInChildren<CharacterSelection>());
             _colliders.Add(GetComponentInChildren<CapsuleCollider>());
         }
+    }
+
+    public int CalculateDamage() {
+        int damage;
+        int critical;
+
+        critical = Random.Range(0, 100);
+        if (critical > _percentOfCritical) {
+            critical = 0;
+        }
+
+        damage = Random.Range(_minAttack, _maxAttack) + critical;
+
+        return damage;
     }
 
     public void SelectCharacter() {
@@ -90,15 +118,16 @@ public class Character : MonoBehaviour
     }
 
 
-    public void MoveToTarget(Character target) {
+    public void MoveToTarget(Character target, int damage) {
+        _damageToInflict = damage;
         AttackPanels.SetActive(false);
         transform.LookAt(target.transform.position);       
-        StartCoroutine(MoveToTarget(transform.position, target.transform.position, transform, timeToMove));
+        StartCoroutine(MoveToTarget(transform.position, target.transform.position, transform, target, timeToMove));
       
     }
 
 
-    IEnumerator MoveToTarget(Vector3 startPos, Vector3 endPos, Transform actor, float time)
+    IEnumerator MoveToTarget(Vector3 startPos, Vector3 endPos, Transform actor, Character target, float time)
     {
         float elapsedTime = 0;
         anim.SetTrigger(WalkTrigger);
@@ -112,6 +141,7 @@ public class Character : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         anim.SetTrigger(Attack1Trigger);
+        target.Slider.value -= _damageToInflict;
         yield return new WaitForSeconds(1.5f);
         anim.SetTrigger(WalkTrigger);
         transform.LookAt(_startPos);
@@ -139,13 +169,11 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1)) {
             //Debug.Log("OIAFIOHFA");
             //transform.LookAt(Target.transform);
-            //MoveToTarget(Target.transform.position);
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
            // Debug.Log("OIAFIOHFA");
            // transform.LookAt(_startPos);
-           // MoveToTarget(_startPos);
         }
     }
 

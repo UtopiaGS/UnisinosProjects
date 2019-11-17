@@ -18,7 +18,9 @@ public class Client : MonoBehaviour
 
     public InputField HostInput;
     public InputField PortInput;
-   // public InputField MessageField;
+
+    public Text PlayerName;
+    // public InputField MessageField;
     public InputField NameField;
 
     public GameObject LoginPanel;
@@ -32,6 +34,7 @@ public class Client : MonoBehaviour
         ClientName = NameField.text;
         Debug.Log("NAME>>> " + ClientName);
         if (string.IsNullOrEmpty(ClientName)) ClientName = "Guest";
+        PlayerName.text = ClientName;
         LoginPanel.SetActive(false);
         //if already connected, ignore this function
         if (_socketReady)

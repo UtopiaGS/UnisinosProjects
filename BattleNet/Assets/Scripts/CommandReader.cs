@@ -89,7 +89,11 @@ public class CommandReader : MonoBehaviour
 
             Debug.Log("TARGET ____ " + target);
 
-            owner.Characters[character].MoveToTarget(owner.Oponent.Characters[target]);
+            int damage = GetIdInBetweenString(data, "?", "#");
+
+            Debug.Log("DAMAGE ____ " + damage);
+
+            owner.Characters[character].MoveToTarget(owner.Oponent.Characters[target],damage);
             return;
         }
     }
@@ -125,7 +129,29 @@ public class CommandReader : MonoBehaviour
         if (data.Contains("&ATTACK>")) {
             string attack = data;
             attack = attack.Replace("&", "%");
-            int damage = Random.Range(10, 20);
+
+            PlayerCharacters owner;
+
+            int player = GetIdInBetweenString(data, ">", "|");
+            if (player == 0)
+            {
+                owner = Player1;
+            }
+            else
+            {
+                owner = Player2;
+            }
+            Debug.Log("PLAYER TO ATTACK ____ " + player);
+
+            int character = GetIdInBetweenString(data, "|", "+");
+
+            Debug.Log("CHARACTER TO ATTACK ____ " + character);
+
+            int target = GetIdInBetweenString(data, "+", "?");
+
+            Debug.Log("TARGET ____ " + target);
+            
+            int damage = owner.Characters[character].CalculateDamage();
             attack += damage.ToString() + "#";
             Debug.Log("ATTAAAAAAAAACKKKKKKK!!!");
             Debug.Log("Server Broadcast: "+attack);
