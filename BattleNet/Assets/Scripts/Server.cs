@@ -170,6 +170,14 @@ public class Server : MonoBehaviour
             Broadcast("%NAME", serverClient);
             Broadcast(clients.Count.ToString(), serverClient);
 
+            if (clients.Count == 1)
+            {
+                Broadcast("%ADDPLAYER|0", clients);
+            }
+            else if (clients.Count == 2) {
+                 Broadcast("%ADDPLAYER|1", clients);
+            }
+
             Debug.Log("SIZE>>>Client accepted " + clients.Count);
 
             Debug.LogFormat("main:{0} my:{1}", mainThread.ManagedThreadId, Thread.CurrentThread.ManagedThreadId);
@@ -220,6 +228,7 @@ public class ServerClient
 {
     public TcpClient tcp;
     public string clientName;
+    public int ID;
 
     public ServerClient(TcpClient clientSocket)
     {

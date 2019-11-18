@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnsController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TurnsController : MonoBehaviour
     Character _currentCharacter;
     private Character _currentTarget;
 
-    public List<Character> AllCharacters;
+    public List<Text> PlayersName;
 
     public PlayerCharacters instancePlayer;
 
@@ -34,6 +35,10 @@ public class TurnsController : MonoBehaviour
     public void SetCurrentTarget(Character target)
     {
         _currentTarget = target;
+    }
+
+    public void SetPlayerNameText(string name, int id) {
+        PlayersName[id].text = name;
     }
 
     public void BlockMouseSelection(int id)

@@ -45,6 +45,24 @@ public class CommandReader : MonoBehaviour
         {
             Debug.Log("CLIENT NAME >> " + cli.ClientName);
             cli.Send("&NAME|" + cli.ClientName);
+           
+            return;
+        }
+
+        if (data.Contains("%ADDPLAYER"))
+        {
+            Debug.Log("CLIENT NAME >> " + cli.ClientName);
+            cli.Send("&ADDPLAYER|" + cli.ClientName +"?"+cli.Player.ID+"-");
+            return;
+        }
+
+        if (data.Contains("%NAMEPLAYER"))
+        {
+            //cli.Send("&ADDPLAYER|" + cli.ClientName + "?" + cli.Player.ID + "-");
+            string name = GetStringInBetweenString(data, "|", "?");
+            int id = GetIdInBetweenString(data, "?", "-");
+            Debug.Log("SET NAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE>> " +id+ "___" + cli.ClientName );
+            TurnsController.instance.SetPlayerNameText(name, id);
             return;
         }
 
@@ -53,6 +71,8 @@ public class CommandReader : MonoBehaviour
             Debug.Log("START GAME CHANGE CALLL>> " + data);
             cli.Send("&STARTGAME");
             TurnsController.instance.ChangeTurn(0,cli);
+
+           
             return;
         }
 
@@ -99,18 +119,31 @@ public class CommandReader : MonoBehaviour
     }
 
     private int GetIdInBetweenString(string text, string separatorLeft, string separetorRight) {
+       string result = GetStringInBetweenString(text, separatorLeft, separetorRight);
+       return int.Parse(result);
+    }
+
+    private string GetStringInBetweenString(string text, string separatorLeft, string separetorRight)
+    {
         int pFrom = text.IndexOf(separatorLeft) + separatorLeft.Length;
         int pTo = text.LastIndexOf(separetorRight);
 
         string result = text.Substring(pFrom, pTo - pFrom);
 
-        return int.Parse(result);
+        return result;
     }
 
     public void ServerReadCommand(Server _server, ServerClient serverClients, string data) {
         if (data.Contains("&NAME"))
         {
             serverClients.clientName = data.Split('|')[1];
+            if (_server.Clients.Count == 1)
+            {
+                serverClients.ID = 0;
+            }
+            else if (_server.Clients.Count == 2) {
+                serverClients.ID = 1;
+            }
             _server.Broadcast(serverClients.clientName + " has connected", _server.Clients);
             _server.Broadcast("Clients connected>>>" + _server.Clients.Count.ToString(), _server.Clients);
 
@@ -120,6 +153,9 @@ public class CommandReader : MonoBehaviour
         if (data == "&STARTGAME")
         {
             _server.Broadcast("START", serverClients);
+
+            //cli.Send("&ADDPLAYER|" + cli.ClientName + "?" + cli.Player.ID + "-");
+
             return;
         }
         Debug.Log(serverClients.clientName + " sent: " + data);
@@ -166,6 +202,25 @@ public class CommandReader : MonoBehaviour
             attack = attack.Replace("&", "%");
             Debug.Log(attack);
             _server.Broadcast(attack, _server.Clients);
+            return;
+        }
+
+        if (data.Contains("&ADDPLAYER"))
+        {
+            string addName = data;
+            addName = addName.Replace("&ADDPLAYER", "%NAMEPLAYER");
+
+            string name = GetStringInBetweenString(data, "|", "?");
+            int id = GetIdInBetweenString(data, "?", "-");
+
+            Debug.Log(addName);
+            _server.Broadcast(addName, _server.Clients);
+
+            foreach (ServerClient c in Server.Clients)
+            {
+                //cli.Send("&ADDPLAYER|" + cli.ClientName + "?" + cli.Player.ID + "-");
+                _server.Broadcast("%NAMEPLAYER|" + c.clientName + "?" + c.ID + "-", _server.Clients);
+            }
             return;
         }
 
