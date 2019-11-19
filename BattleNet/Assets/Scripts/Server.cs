@@ -61,6 +61,7 @@ public class Server : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e.Message);
+            MenuController.instance.BackToMainMenu();
         }
     }
 

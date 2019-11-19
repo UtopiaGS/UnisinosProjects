@@ -26,9 +26,6 @@ public class PlayerCharacters : MonoBehaviour
             Characters[i].Owner = this;
             Characters[i].ID = i;
         }
-          
-        
-
         PlayerClient.Player = this;
     }
         
@@ -38,7 +35,7 @@ public class PlayerCharacters : MonoBehaviour
         SetCollidersActivation(false);
         _indexTurn++;
         _indexTurn = _indexTurn % Characters.Count;
-        Debug.Log(_indexTurn);
+       // Debug.Log(_indexTurn);
         Character currentCharacter = Characters[_indexTurn];
         currentCharacter.SelectCharacter();
         _characterTurn = currentCharacter;
@@ -46,6 +43,19 @@ public class PlayerCharacters : MonoBehaviour
         Debug.Log(currentCharacter.gameObject.name +"  "+_indexTurn);
         return _indexTurn;
     }
+
+    public void RemoveCharacter(Character character) {
+        Characters.Remove(character);
+        Debug.Log("CHARACTERS LIST COUNT IS::::" + Characters.Count);
+        Destroy(character.gameObject);
+
+        for (int i = 0; i < Characters.Count; i++)
+        {
+            Characters[i].ID = i;
+        }
+    }
+
+   
 
 
     public void EndTurn() {
@@ -59,6 +69,7 @@ public class PlayerCharacters : MonoBehaviour
     public void UpdateOutlines() {
         for (int i = 0; i < Characters.Count; i++)
         {
+            if(Characters[i]!=null)
             Characters[i].EndOwnerTurn();
         }
     }
@@ -72,7 +83,8 @@ public class PlayerCharacters : MonoBehaviour
     public void SetCollidersActivation(bool act) {
         for (int i = 0; i < Characters.Count; i++)
         {
-            Characters[i].EnableColliders(act);
+            if(Characters[i]!=null)
+                Characters[i].EnableColliders(act);
         }
     }
 

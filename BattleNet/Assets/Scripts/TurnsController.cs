@@ -16,12 +16,16 @@ public class TurnsController : MonoBehaviour
 
     public List<Text> PlayersName;
 
+    public GameObject WinnerText;
+    public GameObject BackToMenu;
+
     public PlayerCharacters instancePlayer;
 
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
+        BackToMenu.SetActive(false);
     }
 
     public void ClearTurn()
@@ -49,8 +53,11 @@ public class TurnsController : MonoBehaviour
             {
                 for (int j = 0; j < Players[i].Characters.Count; j++)
                 {
-                    //Debug.Log("Desabilita todos colisores");
-                    Players[i].Characters[j].EnableColliders(false);
+                    if (Players[i].Characters[j] != null)
+                    {
+                        //Debug.Log("Desabilita todos colisores");
+                        Players[i].Characters[j].EnableColliders(false);
+                    }
                 }
             }
         }
@@ -61,8 +68,11 @@ public class TurnsController : MonoBehaviour
                 if (instancePlayer != Players[i]) {
                     for (int j = 0; j < Players[i].Characters.Count; j++)
                     {
-                       // Debug.Log("Habilita colisor dos adversários");
-                        Players[i].Characters[j].EnableColliders(true);
+                        if (Players[i].Characters[j] != null)
+                        {
+                            // Debug.Log("Habilita colisor dos adversários");
+                            Players[i].Characters[j].EnableColliders(true);
+                        }
                     }
                 }
             }
@@ -70,8 +80,31 @@ public class TurnsController : MonoBehaviour
 
     }
 
+    public void CheckWinner() {
+        int loserID=-1;
+        for (int i = 0; i < Players.Count; i++)
+        {
+            if (Players[i].Characters.Count <= 0) {
+                loserID = i;
+            }
+
+        }
+        if (loserID != -1) {
+            if (loserID == 0) {
+                WinnerText.GetComponent<Text>().text = PlayersName[1].text + " is the winner!";
+                BackToMenu.SetActive(true);
+            } else if (loserID == 1) {
+
+                WinnerText.GetComponent<Text>().text = PlayersName[0].text + " is the winner!";
+                BackToMenu.SetActive(true);
+            }
+        }
+
+    }
+
     public void ChangeTurn(int turn, Client cli)
     {
+        CheckWinner();
         ClearTurn();
         indexTurn = turn;
         _currentPlayer = Players[indexTurn];

@@ -17,8 +17,14 @@ public class SetTextToPosition : MonoBehaviour
 
     private void Update()
     {
-        Vector3 pos = Camera.main.WorldToScreenPoint(ObjectToFollow.transform.position+ Offset);
-        slider.transform.position = pos;
+        if (ObjectToFollow != null)
+        {
+            Vector3 pos = Camera.main.WorldToScreenPoint(ObjectToFollow.transform.position + Offset);
+            slider.transform.position = pos;
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
     
 }

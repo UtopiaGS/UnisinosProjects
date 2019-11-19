@@ -78,6 +78,7 @@ public class Client : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log("Socket error: " + e.Message);
+            MenuController.instance.BackToMainMenu();
         }
     }
     // Start is called before the first frame update

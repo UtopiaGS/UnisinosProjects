@@ -31,10 +31,13 @@ public class CharacterSelection : MonoBehaviour
 
     void SetOutlineShader(float outlineValue, Color color) {
 
-        for (int i = 0; i < _renderes.materials.Length; i++)
+        if (_renderes != null)
         {
-            _renderes.sharedMaterials[i].SetFloat("_Outline", outlineValue);
-            _renderes.sharedMaterials[i].SetColor("_OutlineColor", color);
+            for (int i = 0; i < _renderes.materials.Length; i++)
+            {
+                _renderes.sharedMaterials[i].SetFloat("_Outline", outlineValue);
+                _renderes.sharedMaterials[i].SetColor("_OutlineColor", color);
+            }
         }
 
     }

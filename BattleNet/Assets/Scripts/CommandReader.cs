@@ -88,7 +88,8 @@ public class CommandReader : MonoBehaviour
         }
 
         if (data.Contains("%ATTACK>")) {
-            Debug.Log("COMMAND READER GOT THAT ATTACK");
+            Debug.Log("COMMAND READER GOT THAT ATTACK");
+
             PlayerCharacters owner;
 
             int player = GetIdInBetweenString(data, ">", "|");

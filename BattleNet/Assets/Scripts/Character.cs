@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
     public Character Target;
     private Vector3 _startPos;
     private Quaternion _startRotation;
-    private Animator anim;
+    public Animator anim;
 
     public PlayerCharacters Owner;
 
@@ -126,6 +126,24 @@ public class Character : MonoBehaviour
       
     }
 
+    public void SetDamage(Character c)
+    {
+        c.Slider.value -= _damageToInflict;
+        if (c.Slider.value <= 0)
+        {
+            Debug.Log("DEAD");
+            c.anim.SetTrigger(DeathTrigger);
+        }
+    }
+
+    public void CheckCharacterLife(Character c) {
+        if (c.Slider.value <= 0)
+        {
+            Debug.Log("DEAD");
+            c.Owner.RemoveCharacter(c);
+        }
+    }
+
 
     IEnumerator MoveToTarget(Vector3 startPos, Vector3 endPos, Transform actor, Character target, float time)
     {
@@ -140,9 +158,10 @@ public class Character : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.1f);
-        anim.SetTrigger(Attack1Trigger);
-        target.Slider.value -= _damageToInflict;
+        anim.SetTrigger(Attack1Trigger);        
         yield return new WaitForSeconds(1.5f);
+        SetDamage(target);
+        float sliderValue = target.Slider.value;
         anim.SetTrigger(WalkTrigger);
         transform.LookAt(_startPos);
         endPos = _startPos;
@@ -159,8 +178,14 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         transform.rotation=_startRotation;
         anim.ResetTrigger(WalkTrigger);
-        
+      
+        CheckCharacterLife(target);
+        if (sliderValue <= 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
         Owner.EndTurn();
+       
     }
 
     // Update is called once per frame
