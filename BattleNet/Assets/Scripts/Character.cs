@@ -40,6 +40,8 @@ public class Character : MonoBehaviour
 
     public PlayerCharacters Owner;
 
+    private AudioSource _source;
+
     [Header("Attack Parameters")]
     [Range(0, 50)]
     [SerializeField] private int _minAttack;
@@ -53,12 +55,15 @@ public class Character : MonoBehaviour
     private int _damageToInflict;
     private int _damageToReceive;
 
+    public PlayRandomSound Sounds;
+
 
     public int OwnerID;
     // Start is called before the first frame update
     void Awake()
     {
         anim = GetComponent<Animator>();
+        _source = GetComponent<AudioSource>();
         _startPos = transform.position;
         _startRotation = transform.rotation;
         int numOfChildren = transform.childCount;//compte le nombre d'enfant du GameObject
@@ -70,6 +75,8 @@ public class Character : MonoBehaviour
             _shaderOutline.Add(GetComponentInChildren<CharacterSelection>());
             _colliders.Add(GetComponentInChildren<CapsuleCollider>());
         }
+
+
     }
 
     public int CalculateDamage() {
@@ -141,6 +148,8 @@ public class Character : MonoBehaviour
         {
             Debug.Log("DEAD");
             c.Owner.RemoveCharacter(c);
+            int random = Random.Range(0, Sounds.DamageClips.Count);
+            _source.PlayOneShot(Sounds.DamageClips[random]);
         }
     }
 
@@ -158,7 +167,9 @@ public class Character : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.1f);
-        anim.SetTrigger(Attack1Trigger);        
+        anim.SetTrigger(Attack1Trigger);
+        int random = Random.Range(0, Sounds.AttackClips.Count);
+        _source.PlayOneShot(Sounds.AttackClips[random]);
         yield return new WaitForSeconds(1.5f);
         SetDamage(target);
         float sliderValue = target.Slider.value;

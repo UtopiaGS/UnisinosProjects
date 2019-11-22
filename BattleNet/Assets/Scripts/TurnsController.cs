@@ -15,6 +15,7 @@ public class TurnsController : MonoBehaviour
     private Character _currentTarget;
 
     public List<Text> PlayersName;
+    public List<Image> PlayerArrow;
 
     public GameObject WinnerText;
     public GameObject BackToMenu;
@@ -26,6 +27,11 @@ public class TurnsController : MonoBehaviour
     {
         instance = this;
         BackToMenu.SetActive(false);
+
+        for (int i = 0; i < PlayerArrow.Count; i++)
+        {
+            PlayerArrow[i].enabled = false;
+        }
     }
 
     public void ClearTurn()
@@ -104,6 +110,7 @@ public class TurnsController : MonoBehaviour
 
     public void ChangeTurn(int turn, Client cli)
     {
+        SetPlayerArrow(turn);
         CheckWinner();
         ClearTurn();
         indexTurn = turn;
@@ -119,6 +126,18 @@ public class TurnsController : MonoBehaviour
         BlockMouseSelection(turn);
     }
 
+
+    public void SetPlayerArrow(int index) {
+        if (index == 0) {
+            PlayerArrow[0].enabled = true;
+            PlayerArrow[1].enabled = false;
+        }
+        if (index == 1)
+        {
+            PlayerArrow[0].enabled = false;
+            PlayerArrow[1].enabled = true;
+        }
+    }
 
 
 
