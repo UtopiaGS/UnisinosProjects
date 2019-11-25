@@ -29,6 +29,8 @@ public class Server : MonoBehaviour
 
     public int CurrentPlayerIndex;
 
+    private bool _gameStarted= false;
+
 
     private void Start()
     {
@@ -77,8 +79,11 @@ public class Server : MonoBehaviour
             if (!IsConnected(c.tcp))
             {
                 disconnectedList.Add(c);
-                Broadcast(c.clientName + " has disconnected", clients);
+                Broadcast(c.clientName + " has disconnected>"+(clients.Count-1), clients);
+
                 clients.Remove(c);
+                
+               
                 c.tcp.Close(); //Close socket
                 continue;
             }
@@ -188,6 +193,8 @@ public class Server : MonoBehaviour
                 WaitingPlayersPopUp.SetActive(false);
 
                 Debug.Log("STARTED, BROADCAST!!!!");
+
+                _gameStarted = true;
 
                 Broadcast("%STARTGAME|0", clients);
 

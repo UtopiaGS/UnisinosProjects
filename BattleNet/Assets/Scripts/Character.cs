@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
     public float WalkSpeed=1f;
 
     public GameObject RootGameObject;
+    public GameObject AttackPos;
     private List<CharacterSelection> _shaderOutline = new List<CharacterSelection>();
     private List<CapsuleCollider> _colliders = new List<CapsuleCollider>();
     public Slider Slider;
@@ -128,8 +129,8 @@ public class Character : MonoBehaviour
     public void MoveToTarget(Character target, int damage) {
         _damageToInflict = damage;
         AttackPanels.SetActive(false);
-        transform.LookAt(target.transform.position);       
-        StartCoroutine(MoveToTarget(transform.position, target.transform.position, transform, target, timeToMove));
+        transform.LookAt(target.transform.position);
+        StartCoroutine(MoveToTarget(transform.position, target.AttackPos.transform.position, transform, target, timeToMove));
       
     }
 

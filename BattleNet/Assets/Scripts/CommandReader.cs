@@ -43,7 +43,7 @@ public class CommandReader : MonoBehaviour
         Debug.Log(data);
         if (data == "%NAME")
         {
-            Debug.Log("CLIENT NAME >> " + cli.ClientName);
+            //Debug.Log("CLIENT NAME >> " + cli.ClientName);
             cli.Send("&NAME|" + cli.ClientName);
            
             return;
@@ -51,7 +51,7 @@ public class CommandReader : MonoBehaviour
 
         if (data.Contains("%ADDPLAYER"))
         {
-            Debug.Log("CLIENT NAME >> " + cli.ClientName);
+           // Debug.Log("CLIENT NAME >> " + cli.ClientName);
             cli.Send("&ADDPLAYER|" + cli.ClientName +"?"+cli.Player.ID+"-");
             return;
         }
@@ -61,14 +61,14 @@ public class CommandReader : MonoBehaviour
             //cli.Send("&ADDPLAYER|" + cli.ClientName + "?" + cli.Player.ID + "-");
             string name = GetStringInBetweenString(data, "|", "?");
             int id = GetIdInBetweenString(data, "?", "-");
-            Debug.Log("SET NAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE>> " +id+ "___" + cli.ClientName );
+           // Debug.Log("SET NAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE>> " +id+ "___" + cli.ClientName );
             TurnsController.instance.SetPlayerNameText(name, id);
             return;
         }
 
         if (data == "%STARTGAME|0")
         {
-            Debug.Log("START GAME CHANGE CALLL>> " + data);
+           // Debug.Log("START GAME CHANGE CALLL>> " + data);
             cli.Send("&STARTGAME");
             TurnsController.instance.ChangeTurn(0,cli);
 
@@ -87,8 +87,13 @@ public class CommandReader : MonoBehaviour
             return;
         }
 
+        if (data.Contains("has disconnected>1")) {
+            MenuController.instance.BackToMainMenu();
+            return;
+        }
+
         if (data.Contains("%ATTACK>")) {
-            Debug.Log("COMMAND READER GOT THAT ATTACK");
+           // Debug.Log("COMMAND READER GOT THAT ATTACK");
 
             PlayerCharacters owner;
 
@@ -100,19 +105,19 @@ public class CommandReader : MonoBehaviour
             else {
                 owner = Player2;
             }
-            Debug.Log("PLAYER TO ATTACK ____ " + player);
+            //Debug.Log("PLAYER TO ATTACK ____ " + player);
 
             int character = GetIdInBetweenString(data, "|", "+");
 
-            Debug.Log("CHARACTER TO ATTACK ____ " + character);
+           // Debug.Log("CHARACTER TO ATTACK ____ " + character);
 
             int target = GetIdInBetweenString(data, "+", "?");
 
-            Debug.Log("TARGET ____ " + target);
+            //Debug.Log("TARGET ____ " + target);
 
             int damage = GetIdInBetweenString(data, "?", "#");
 
-            Debug.Log("DAMAGE ____ " + damage);
+           // Debug.Log("DAMAGE ____ " + damage);
 
             owner.Characters[character].MoveToTarget(owner.Oponent.Characters[target],damage);
             return;
