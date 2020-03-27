@@ -37,7 +37,7 @@ public class Client : MonoBehaviour
 
         //default host / port values
         string host = "127.0.0.1";
-        int port = 6321;
+        int port = 41222;
 
         if (!string.IsNullOrEmpty(HostInput.text)) {
             host = HostInput.text;

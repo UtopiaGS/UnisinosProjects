@@ -80,6 +80,7 @@ public class Server : MonoBehaviour
             {
                 disconnectedList.Add(c);
                 Broadcast(c.clientName + " has disconnected>"+(clients.Count-1), clients);
+               // MenuController.instance.BackToMainMenu();
 
                 clients.Remove(c);
                 
