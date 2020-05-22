@@ -23,3 +23,11 @@ Chat/.vs
 CrimeSceneV2/Temp
 *.zip
 *.7z
+Rube Goldberg/.vs/Rube Goldberg/v16
+Rube Goldberg/Library
+Rube Goldberg/obj
+Rube Goldberg/Logs
+Rube Goldberg/Temp
+Trebuchet/Trebuchet/Library
+Trebuchet/Trebuchet/Logs
+*.csproj
