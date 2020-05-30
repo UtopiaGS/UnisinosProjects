@@ -32,3 +32,5 @@ Trebuchet/Trebuchet/Library
 Trebuchet/Trebuchet/Logs
 *.csproj
 Trebuchet/Trebuchet/obj
+Trebuchet/Trebuchet/.vs/Trebuchet/v16
+Trebuchet/Trebuchet/Temp
