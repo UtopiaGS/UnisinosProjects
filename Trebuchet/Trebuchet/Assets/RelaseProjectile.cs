@@ -5,11 +5,11 @@ using UnityEngine;
 public class RelaseProjectile : MonoBehaviour
 {
     public GameObject Target;
-    private HingeJoint targetJoint;
+    private FixedJoint targetJoint;
     // Start is called before the first frame update
     void Start()
     {
-       targetJoint =  Target.GetComponent<HingeJoint>();
+       targetJoint =  Target.GetComponent<FixedJoint>();
     }
 
     // Update is called once per frame
