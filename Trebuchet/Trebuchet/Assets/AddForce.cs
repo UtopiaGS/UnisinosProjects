@@ -9,7 +9,13 @@ public class AddForce : MonoBehaviour
     public HingeJoint rope;
     public Slider slider;
     public Text forceTxt;
+
+    public static AddForce Instance;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         forceTxt.text = slider.value.ToString();
@@ -23,6 +29,11 @@ public class AddForce : MonoBehaviour
     public void ChangeForceText() {
         forceTxt.text = slider.value.ToString();
         rb.mass = slider.value;
+    }
+
+    public void UpdateReferences(Rigidbody weight, HingeJoint Rope) {
+        rope = Rope;
+        rb = weight;
     }
     public void ApplyForceAndBreak() {
         if (rope != null)
