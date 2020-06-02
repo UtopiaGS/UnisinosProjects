@@ -17,7 +17,7 @@ public class RoundsController : MonoBehaviour
         TrebuchetComponets clone;
         clone = Instantiate(TrebuchetPrefab, position, Quaternion.identity);
         AddForce.Instance.UpdateReferences(clone.Weight, clone.Rope);
-        CameraFollowObject.Instance.TargetObject = clone.gameObject.transform;
+        CameraFollowObject.Instance.TargetObject = clone.StoneTarget;
         _currentTrebuchet = clone;
     }
 
