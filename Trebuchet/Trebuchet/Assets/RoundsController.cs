@@ -22,13 +22,19 @@ public class RoundsController : MonoBehaviour
     }
 
     public void DestroyAndCreateTrebuchet() {
-        DestroyTrebuchet();
-        InstantiateNewTrebuchet();
-    
+        StartCoroutine(DestroyAndCreateRoutine(1.0f));
     }
 
+    private IEnumerator DestroyAndCreateRoutine(float delay ) {
+        yield return new WaitForSeconds(delay);
+        DestroyTrebuchet();
+        yield return new WaitForSeconds(0.1f);
+        InstantiateNewTrebuchet();
+    }
+
+
     private void DestroyTrebuchet() {
-        Destroy(_currentTrebuchet.gameObject, 0.5f);
+        Destroy(_currentTrebuchet.gameObject);
     }
     // Update is called once per frame
     void Update()

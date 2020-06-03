@@ -42,6 +42,7 @@ public class AddForce : MonoBehaviour
             rope.breakForce = 0;
             rb.AddForce(0, -(slider.value), 0);
             Debug.Log("Throwing!");
+            StartCoroutine(CanvasController.Instance.WaitForEnableNext());
         }
     }
 }
