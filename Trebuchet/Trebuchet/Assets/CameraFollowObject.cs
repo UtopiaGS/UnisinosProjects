@@ -26,30 +26,32 @@ public class CameraFollowObject : MonoBehaviour
     void Update()
     {
         //get a vector pointing from camera towards the ball
-
-        Vector3 lookToward = TargetObject.position - transform.position;
-        if (useFixedLookDirection)
-            lookToward = fixedLookDirection;
-
-
-        //make it stay a fixed distance behind ball
-        Vector3 newPos;
-        newPos = TargetObject.position - lookToward.normalized * followDistance;
-        newPos.y = TargetObject.position.y + followHeight;
-
-        if (!smoothedFollow)
+        if (TargetObject != null)
         {
-            transform.position = newPos;    //move exactly to follow target
-        }
-        else   //  smoothed / soft follow
-        {
-            transform.position += (newPos - transform.position) * Time.deltaTime * smoothSpeed;
-        }
+            Vector3 lookToward = TargetObject.position - transform.position;
+            if (useFixedLookDirection)
+                lookToward = fixedLookDirection;
 
-        //re- calculate look direction (dont' do this line if you want to lag the look a little
-        lookToward = TargetObject.position - transform.position;
 
-        //make this camera look at target
-        transform.forward = lookToward.normalized;
+            //make it stay a fixed distance behind ball
+            Vector3 newPos;
+            newPos = TargetObject.position - lookToward.normalized * followDistance;
+            newPos.y = TargetObject.position.y + followHeight;
+
+            if (!smoothedFollow)
+            {
+                transform.position = newPos;    //move exactly to follow target
+            }
+            else   //  smoothed / soft follow
+            {
+                transform.position += (newPos - transform.position) * Time.deltaTime * smoothSpeed;
+            }
+
+            //re- calculate look direction (dont' do this line if you want to lag the look a little
+            lookToward = TargetObject.position - transform.position;
+
+            //make this camera look at target
+            transform.forward = lookToward.normalized;
+        }
     }
 }

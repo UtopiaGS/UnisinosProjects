@@ -5,18 +5,25 @@ using UnityEngine;
 public class RoundsController : MonoBehaviour
 {
     public TrebuchetComponets TrebuchetPrefab;
+    public static RoundsController Instance;
     public Vector3 position;
     private TrebuchetComponets _currentTrebuchet;
+    public TrebuchetComponets CurrentTrebuchet => _currentTrebuchet;
     // Start is called before the first frame update
     void Start()
     {
         InstantiateNewTrebuchet();
     }
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void InstantiateNewTrebuchet() {
         TrebuchetComponets clone;
         clone = Instantiate(TrebuchetPrefab, position, Quaternion.identity);
-        AddForce.Instance.UpdateReferences(clone.Weight, clone.Rope);
+
         CameraFollowObject.Instance.TargetObject = clone.StoneTarget;
         _currentTrebuchet = clone;
     }

@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class AddForce : MonoBehaviour
 {
-    public Rigidbody rb;
-    public HingeJoint rope;
+   
     public Slider slider;
     public Text forceTxt;
 
@@ -28,19 +27,15 @@ public class AddForce : MonoBehaviour
     }
     public void ChangeForceText() {
         forceTxt.text = slider.value.ToString();
-        rb.mass = slider.value;
+        
     }
 
-    public void UpdateReferences(Rigidbody weight, HingeJoint Rope) {
-        rope = Rope;
-        rb = weight;
-    }
+  
     public void ApplyForceAndBreak() {
-        if (rope != null)
+        if (!RoundsController.Instance.CurrentTrebuchet.WasFired)
         {
-            rb.mass = slider.value;
-            rope.breakForce = 0;
-            rb.AddForce(0, -(slider.value), 0);
+            RoundsController.Instance.CurrentTrebuchet.ThrowProjectile(slider.value);
+          
             Debug.Log("Throwing!");
             StartCoroutine(CanvasController.Instance.WaitForEnableNext());
         }
