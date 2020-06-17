@@ -12,6 +12,8 @@ public class TrebuchetComponets : MonoBehaviour
 
     private bool _wasFired;
     public bool WasFired => _wasFired;
+
+    public RandomAudioClip SoldierAudioClips;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,9 @@ public class TrebuchetComponets : MonoBehaviour
         _wasFired = true;
         Rope.breakForce = 0;
         Weight.AddForce(0, -(force), 0);
+        SoundPlayer.Instance.PlayClip(SoldierAudioClips.ReturnChosenClip());
+        SliderPingPong.Instance.StopPingPong();
+
         Debug.Log("Throwing!");
     }
 

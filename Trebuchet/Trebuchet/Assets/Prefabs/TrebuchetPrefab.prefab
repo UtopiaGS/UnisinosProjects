@@ -101,7 +101,8 @@ MonoBehaviour:
   StoneTarget: {fileID: 7774032460907794154}
   Weight: {fileID: 7774032462310920644}
   Rope: {fileID: 7774032462036655800}
-  _speed: 45
+  _speed: 100
+  SoldierAudioClips: {fileID: 11400000, guid: bd6f0a23d0854004f881f68e4cce1cb2, type: 2}
 --- !u!96 &4525545077756354501
 TrailRenderer:
   serializedVersion: 2

@@ -8,8 +8,9 @@ public class CanvasController : MonoBehaviour
 {
     public Button NextBtn;
     public Image PanelFade;
-     public Button ThrowBtn;
+    public Button ThrowBtn;
     public Text RoundsTxt;
+
 
     public static CanvasController Instance;
     // Start is called before the first frame update
