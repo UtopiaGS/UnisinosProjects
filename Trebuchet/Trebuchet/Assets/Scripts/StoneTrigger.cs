@@ -9,7 +9,7 @@ public class StoneTrigger : MonoBehaviour
 
     Rigidbody _body;
 
-    public List<AudioClip> ClipsExplosion = new List<AudioClip>();
+    public RandomAudioClip _clips;
 
     private Vector3 _currentVelocity;
     private float dot;
@@ -24,9 +24,7 @@ public class StoneTrigger : MonoBehaviour
     }
 
     void CallRandomExplosion() {
-        int i = Random.Range(0, ClipsExplosion.Count - 1);
-        Debug.Log("I is " + i);
-        SoundPlayer.Instance.PlayClip(ClipsExplosion[i]);
+        SoundPlayer.Instance.PlayClipWithoutLoop(_clips.ReturnChosenClip());
     }
 
     // Update is called once per frame
@@ -39,8 +37,8 @@ public class StoneTrigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Bricks") && dot>15)
-        {
+        if (other.gameObject.CompareTag("Bricks") && dot>20)
+        {           
             _OnHit.Invoke();
         }
     }

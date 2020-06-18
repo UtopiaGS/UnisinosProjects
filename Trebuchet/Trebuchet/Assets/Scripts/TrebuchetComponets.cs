@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class TrebuchetComponets : MonoBehaviour
@@ -37,10 +38,17 @@ public class TrebuchetComponets : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && !_wasFired)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * _speed * Time.deltaTime, 0);
+           
         }
         if (Input.GetKey(KeyCode.D) && !_wasFired)
         {
             transform.Rotate(0, Input.GetAxis("Horizontal") * _speed * Time.deltaTime, 0);
+           
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A)) {
+            if (!SoundPlayer.Instance.IsPlaying)
+                SoundPlayer.Instance.PlayClipId(9);
         }
     }
 }

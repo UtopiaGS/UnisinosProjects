@@ -10,6 +10,10 @@ public class SoundPlayer : MonoBehaviour
     public List<AudioClip> Clips = new List<AudioClip>();
 
     public static SoundPlayer Instance;
+
+    public bool IsPlaying => _source.isPlaying;
+
+    public AudioClip ClipPlaying => _source.clip;
     // Start is called before the first frame update
 
     private void Awake()
@@ -27,6 +31,12 @@ public class SoundPlayer : MonoBehaviour
     }
     public void PlayClip(AudioClip i)
     {
+            _source.PlayOneShot(i);
+    }
+
+    public void PlayClipWithoutLoop(AudioClip i)
+    {
+        if(_source.clip != i)
             _source.PlayOneShot(i);
     }
 

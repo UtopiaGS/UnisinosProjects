@@ -12,6 +12,6 @@ public class RandomAudioClip : ScriptableObject
    
     public AudioClip ReturnChosenClip() {
     
-        return RandomClips[Random.Range(0, RandomClips.Count+1)];
+        return RandomClips[Random.Range(0, RandomClips.Count)];
     }
 }

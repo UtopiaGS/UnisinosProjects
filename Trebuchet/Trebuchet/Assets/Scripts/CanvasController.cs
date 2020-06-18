@@ -11,6 +11,10 @@ public class CanvasController : MonoBehaviour
     public Button ThrowBtn;
     public Text RoundsTxt;
 
+    public Text TargetsLefttext;
+
+    public Animator VictoryAnimator;
+
 
     public static CanvasController Instance;
     // Start is called before the first frame update
@@ -19,6 +23,14 @@ public class CanvasController : MonoBehaviour
         Instance = this;
     }
 
+    public void SetTargetsLeft() {
+        TargetsLefttext.text = RoundsController.Instance.TargetsLeft.ToString("00");
+    }
+
+
+    public void SetAnimatorVictoryTrigger(string trigger) {
+        VictoryAnimator.SetTrigger(trigger);
+    }
     // Update is called once per frame
     void Start()
     {
@@ -33,6 +45,7 @@ public class CanvasController : MonoBehaviour
     public void DeactivateNextBtn()
     {
         NextBtn.gameObject.SetActive(false);
+      
         PanelFade.gameObject.SetActive(false);
     }
     public IEnumerator WaitForEnableNext()
@@ -52,9 +65,13 @@ public class CanvasController : MonoBehaviour
         PanelFade.gameObject.SetActive(true);
         PanelFade.DOFade(1.0f, 1.5f);
         yield return new WaitForSeconds(1.5f);
+        SliderPingPong.Instance.Reset();
         NextBtn.gameObject.SetActive(false);
         ThrowBtn.gameObject.SetActive(true);
-        PanelFade.DOFade(0.0f, 2.5f).OnComplete(() => { PanelFade.gameObject.SetActive(false); });
+        PanelFade.DOFade(0.0f, 2.5f).OnComplete(() => { 
+            PanelFade.gameObject.SetActive(false); 
+           
+        });
     }
 
     public void FadeOutAndFadeIn() {

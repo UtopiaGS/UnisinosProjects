@@ -13,7 +13,7 @@ public class SliderPingPong : MonoBehaviour
 
     bool _wasThrow;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Instance = this;
         _slider = GetComponent<Slider>();
@@ -28,6 +28,7 @@ public class SliderPingPong : MonoBehaviour
     {
         _wasThrow = false;
         _slider.value = _slider.minValue;
+        Debug.Log("SIIIIIIIIIIIIIIIIIIIM");
     }
 
     // Update is called once per frame

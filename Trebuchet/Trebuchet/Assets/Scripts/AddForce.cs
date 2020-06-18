@@ -24,12 +24,18 @@ public class AddForce : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            SoundPlayer.Instance.PlayClipId(0);
+            ApplyForceAndBreak();
         
+        }
     }
     public void ChangeForceText() {
         forceTxt.text = slider.value.ToString();
         
     }
+
+
 
   
     public void ApplyForceAndBreak() {

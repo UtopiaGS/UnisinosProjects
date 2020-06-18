@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class RoundsController : MonoBehaviour
 {
     public TrebuchetComponets TrebuchetPrefab;
+
     public static RoundsController Instance;
     public Vector3 position;
     private TrebuchetComponets _currentTrebuchet;
@@ -16,14 +17,20 @@ public class RoundsController : MonoBehaviour
 
     private int _targetsDown = 0;
 
+    private int _targetsToDestroy = 4;
+
+    public int TargetsLeft { get { return _targetsToDestroy - _targetsDown; } }
+
     public UnityEvent TargetDownObserver = new UnityEvent();
+    public UnityEvent Victory = new UnityEvent();
     // Start is called before the first frame update
     void Start()
     {
         _targetsDown = 0;
         InstantiateNewTrebuchet();
         TargetDownObserver.AddListener(TargetDownScore);
-
+        Victory.AddListener(TriggerVictoryWindow);
+        CanvasController.Instance.SetTargetsLeft();
 
     }
 
@@ -32,9 +39,17 @@ public class RoundsController : MonoBehaviour
         Instance = this;
     }
 
+    public void TriggerVictoryWindow() {
+        Debug.Log("AEEEEEEEEEEEEEEEEEEEEEEEEE");
+    }
+
     private void TargetDownScore() {
         _targetsDown++;
-       // SoundPlayer.Instance.PlayClipId();
+        CanvasController.Instance.SetTargetsLeft();
+        if (TargetsLeft == 0) {
+            Victory.Invoke();
+        }
+        // SoundPlayer.Instance.PlayClipId();
     }
 
 
@@ -51,6 +66,7 @@ public class RoundsController : MonoBehaviour
     }
 
     public void DestroyAndCreateTrebuchet() {
+      
         StartCoroutine(DestroyAndCreateRoutine(1.0f));
     }
 
@@ -68,8 +84,6 @@ public class RoundsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_targetsDown <= 4) {
-            Debug.Log("VENCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEUUUUUUUUUUUUUUUUU");
-        }
+      
     }
 }
