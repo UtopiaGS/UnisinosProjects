@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class RoundsController : MonoBehaviour
 {
@@ -52,6 +53,12 @@ public class RoundsController : MonoBehaviour
         // SoundPlayer.Instance.PlayClipId();
     }
 
+
+    public void RestartGame() {
+
+        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+    
+    }
 
 
     private void InstantiateNewTrebuchet() {
