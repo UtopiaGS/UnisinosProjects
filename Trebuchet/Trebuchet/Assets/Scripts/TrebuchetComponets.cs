@@ -15,10 +15,13 @@ public class TrebuchetComponets : MonoBehaviour
     public bool WasFired => _wasFired;
 
     public RandomAudioClip SoldierAudioClips;
+
+    public LineRenderer Line;
     // Start is called before the first frame update
     void Start()
     {
         _wasFired = false;
+        Line = GetComponent<LineRenderer>();
     }
 
     public void ThrowProjectile(float force) {
@@ -30,6 +33,7 @@ public class TrebuchetComponets : MonoBehaviour
         SliderPingPong.Instance.StopPingPong();
 
         Debug.Log("Throwing!");
+        Line.enabled = false;
     }
 
     // Update is called once per frame
