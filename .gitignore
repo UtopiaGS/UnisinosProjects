@@ -34,3 +34,8 @@ Trebuchet/Trebuchet/Logs
 Trebuchet/Trebuchet/obj
 Trebuchet/Trebuchet/.vs/Trebuchet/v16
 Trebuchet/Trebuchet/Temp
+ArduinoProj/.vs
+ArduinoProj/Library
+OpenCVProject/.vs
+OpenCVProject/Library
+OpenCVProject/obj
