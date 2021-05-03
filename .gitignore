@@ -39,3 +39,5 @@ ArduinoProj/Library
 OpenCVProject/.vs
 OpenCVProject/Library
 OpenCVProject/obj
+ArduinoProj/obj/Debug
+ArduinoProj/Temp
