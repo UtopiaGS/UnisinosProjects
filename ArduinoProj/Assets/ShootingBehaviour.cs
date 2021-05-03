@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class ShootingBehaviour : MonoBehaviour
 {
     public GameObject Projectile;
-    public FirstPersonController _fpsController;
+    public GameObject playerPos;
     public float Force;
     // Start is called before the first frame update
     void Start()
@@ -18,10 +18,10 @@ public class ShootingBehaviour : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            GameObject projectile = Instantiate(Projectile, transform.position, _fpsController.transform.rotation);
+            GameObject projectile = Instantiate(Projectile, playerPos.transform.position, playerPos.transform.rotation);
             var rb = projectile.GetComponent<Rigidbody>();
             if (rb != null) {
-                rb.AddForce(_fpsController.transform.forward * Force, ForceMode.Force);
+                rb.AddForce(-playerPos.transform.forward * Force, ForceMode.Force);
             }
         }
     }
