@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Globalization;
 
 /**
  * Sample for reading using polling by yourself, and writing too.
@@ -15,6 +16,9 @@ using System.Collections;
 public class SampleUserPolling_ReadWrite : MonoBehaviour
 {
     public SerialController serialController;
+
+
+
 
     // Initialization
     void Start()
@@ -25,7 +29,7 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
     }
 
     // Executed each frame
-    void Update()
+    void FixedUpdate()
     {
         //---------------------------------------------------------------------
         // Send data
@@ -61,6 +65,8 @@ public class SampleUserPolling_ReadWrite : MonoBehaviour
         else if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_DISCONNECTED))
             Debug.Log("Connection attempt failed or disconnection detected");
         else
-            Debug.Log("Message arrived: " + message);
+        {
+            Debug.Log("Message arrived: " + message);           
+        }
     }
 }

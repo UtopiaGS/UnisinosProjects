@@ -18,11 +18,17 @@ public class ShootingBehaviour : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            GameObject projectile = Instantiate(Projectile, playerPos.transform.position, playerPos.transform.rotation);
-            var rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null) {
-                rb.AddForce(-playerPos.transform.forward * Force, ForceMode.Force);
-            }
+            Shooting();
         }
+    }
+
+    public void Shooting() {
+        GameObject projectile = Instantiate(Projectile, playerPos.transform.position, playerPos.transform.rotation);
+        var rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(-playerPos.transform.forward * Force, ForceMode.Force);
+        }
+
     }
 }
