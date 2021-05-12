@@ -32,6 +32,7 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 
 	public string[] messages;
 
+	public Quaternion initialRot;
 	public Transform obj;
 	public Vector3 oldRot;
 	public Vector3 newRot;
@@ -52,7 +53,7 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 	public float offOffset = 23;
 
 	public float InputShot = 0;
-
+	/*
 	[DllImport("user32.dll")]
 	static extern void mouse_event (int flag, int x, int y, int data, int extraInfo);
 
@@ -75,11 +76,12 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 	public void ButtonUp(){
 		//Second button code goes here
 	}
-
+	*/
     // Initialization
     void Start()
     {
         serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
+		initialRot = obj.rotation;
 	}
 
     // Executed each frame
@@ -106,7 +108,7 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 
 		if (messages.Length > 0)
 		{
-						
+			/*			
 			if (messages.Length>=3 && messages[3] == "0" && !clicking1)
 			{
 				clicking1 = true;
@@ -127,49 +129,29 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 			{
 				clicking2 = false;
 				//ButtonUp ();
-			}
+			}*/
 
 			oldRot = obj.eulerAngles;
 			obj.eulerAngles = new Vector3(-float.Parse(messages[2], CultureInfo.InvariantCulture.NumberFormat),
 				float.Parse(messages[0], CultureInfo.InvariantCulture.NumberFormat),
-				float.Parse(messages[1], CultureInfo.InvariantCulture.NumberFormat));
+				float.Parse(messages[1], CultureInfo.InvariantCulture.NumberFormat)) + initialRot.eulerAngles;
 
-			newRot = obj.eulerAngles;
-			newRot = new Vector3(newRot.x > 0 ? newRot.x : (360 + newRot.x), newRot.y > 0 ? newRot.y : (360 + newRot.y), newRot.z > 0 ? newRot.z : (360 + newRot.z));
-
-			differenceX = obj.eulerAngles.x - oldRot.x;
-			differenceY = obj.eulerAngles.y - oldRot.y;
-
-			if (oldRot.x < 180 && newRot.x > 180)
-				differenceX = 360 - differenceX;
-			if (oldRot.y < 180 && newRot.y > 180)
-				differenceY = 360 - differenceY;
-
-			if (oldRot.x > 180 && newRot.x < 180)
-				differenceX = differenceX + 360;
-			if (oldRot.y > 180 && newRot.y < 180)
-				differenceY = differenceY + 360;
-
+			InputShot = float.Parse(messages[5], CultureInfo.InvariantCulture.NumberFormat);
 
 			if (messages.Length >= 5 && messages[5] == "0")
 			{
 				ShootInput = false;
 			}
 
-			if (messages.Length >= 5 && messages[5] == "1")
-			{
-				ShootInput = true;
-			}
-			InputShot = float.Parse(messages[5], CultureInfo.InvariantCulture.NumberFormat);
-			if (InputShot != 0)
+			if (messages.Length >= 5 && messages[5] == "1" && !ShootInput)
 			{
 				Debug.Log("ATIROUUUUUUUUUUUUUUUUUUUUUUUUUU " + InputShot);
 				Shooting.Shooting();
+				ShootInput = true;
 			}
-
+			
 		}
 
 		message = string.Empty;
-		//Move((int)(differenceY * sensivityY), (int)(differenceX * sensivityX));
 	}
 }
