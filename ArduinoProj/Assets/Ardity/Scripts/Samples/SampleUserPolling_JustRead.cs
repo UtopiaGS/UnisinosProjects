@@ -134,7 +134,7 @@ public class SampleUserPolling_JustRead : MonoBehaviour
 			oldRot = obj.eulerAngles;
 			obj.eulerAngles = new Vector3(-float.Parse(messages[2], CultureInfo.InvariantCulture.NumberFormat),
 				float.Parse(messages[0], CultureInfo.InvariantCulture.NumberFormat),
-				float.Parse(messages[1], CultureInfo.InvariantCulture.NumberFormat)) + initialRot.eulerAngles;
+				float.Parse(messages[1], CultureInfo.InvariantCulture.NumberFormat)) + initialRot.eulerAngles ;
 
 			InputShot = float.Parse(messages[5], CultureInfo.InvariantCulture.NumberFormat);
 
