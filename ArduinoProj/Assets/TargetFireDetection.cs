@@ -29,6 +29,8 @@ public class TargetFireDetection : MonoBehaviour
         if (other.gameObject.CompareTag("Fire"))
         {
             isOnFire = true;
+            var cubeRenderer = gameObject.GetComponent<Renderer>();
+            cubeRenderer.material.SetColor("_Color", Color.red);
             Debug.Log("THIS TARGET IS ON FIREEEEEEEEEEEEEE");
         }
     }
